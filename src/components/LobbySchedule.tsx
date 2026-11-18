@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { memo, useEffect, useState } from 'react';
+import { m } from 'motion/react';
 import { Clock, Check, ArrowRight, Megaphone, Wallet, Headset } from 'lucide-react';
 import {
   COUNTDOWN_CONFIG,
@@ -101,7 +101,12 @@ function computeNextIstLobby(nowMs: number): NextLobbyCountdown {
   };
 }
 
-export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleProps) {
+const ENTRY_SUMMARY = ENTRY_TIERS.map((t) => t.entryDisplay).join(' · ');
+
+export const LobbySchedule = memo(function LobbySchedule({
+  selectedLobbyId,
+  onSelectLobby,
+}: LobbyScheduleProps) {
   const [countdown, setCountdown] = useState<NextLobbyCountdown | null>(() =>
     COUNTDOWN_CONFIG.isScheduleConfigured ? computeNextIstLobby(Date.now()) : null
   );
@@ -118,15 +123,12 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
     return () => window.clearInterval(timer);
   }, []);
 
-  const entrySummary = ENTRY_TIERS.map((t) => t.entryDisplay).join(' · ');
-
   return (
     <section
       id="schedule"
       className="relative overflow-hidden border-b border-slate-300/14 bg-gradient-to-b from-[#0A0E19] via-[#0D1221] to-[#080B14] py-16 md:py-24"
     >
       <ParallaxSectionAura position="left" tone="steel" />
-      <TelemetryScanBar />
 
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -137,31 +139,31 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
               title="Four Daily IST Scrim Windows"
               symbol="schedule"
             />
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={VIEWPORT_CONFIG}
-              transition={{ duration: 0.45, delay: 0.14, ease: EASE_OUT_EXPO }}
+              transition={{ duration: 0.42, delay: 0.1, ease: EASE_OUT_EXPO }}
               className="mt-3 max-w-[58ch] text-sm leading-[1.7] text-slate-300 sm:text-[15px]"
             >
               Consistent daily custom room timings running B2B six-map sessions. Select a
               lobby below to pre-fill your WhatsApp registration request.
-            </motion.p>
+            </m.p>
           </div>
 
           {/* Schedule-Driven IST Countdown Console */}
           {COUNTDOWN_CONFIG.isScheduleConfigured && countdown && (
-            <motion.div
-              initial={{ opacity: 0, x: 16 }}
+            <m.div
+              initial={{ opacity: 0, x: 14 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={VIEWPORT_CONFIG}
-              transition={{ duration: 0.48, delay: 0.16, ease: EASE_OUT_EXPO }}
+              transition={{ duration: 0.45, delay: 0.12, ease: EASE_OUT_EXPO }}
               className="surface-ruby-command clip-chamfer relative flex flex-col gap-3 overflow-hidden border border-rose-400/30 px-5 py-4 sm:flex-row sm:items-center sm:gap-6"
             >
               <TelemetryScanBar />
               <div>
                 <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-slate-200 uppercase">
-                  <Clock className="h-3.5 w-3.5 text-[#FB7185]" aria-hidden="true" />
+                  <Clock className="h-3.5 w-3.5 text-[#7DD3FC]" strokeWidth={1.75} aria-hidden="true" />
                   <span>Next Scheduled Lobby · {countdown.dateLabel}</span>
                 </div>
                 <p className="font-display mt-1 text-2xl font-bold tracking-[0.06em] text-white uppercase">
@@ -181,17 +183,11 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                   {countdown.minutes}
                 </span>
                 <span className="text-[#F43F5E]">:</span>
-                <motion.span
-                  key={countdown.seconds}
-                  initial={{ opacity: 0.65, y: -2 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="rounded-sm border border-rose-400/30 bg-[#06080F] px-2.5 py-1.5 text-[#FDA4AF]"
-                >
+                <span className="rounded-sm border border-rose-400/30 bg-[#06080F] px-2.5 py-1.5 text-[#FDA4AF]">
                   {countdown.seconds}
-                </motion.span>
+                </span>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </div>
 
@@ -202,15 +198,15 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
             const slotNumber = String(index + 1).padStart(2, '0');
 
             return (
-              <motion.article
+              <m.article
                 key={lobby.id}
-                initial={{ opacity: 0, y: 20, scale: 0.985 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT_CONFIG}
-                transition={{ duration: 0.45, delay: index * 0.07, ease: EASE_OUT_EXPO }}
-                className={`clip-chamfer group relative flex flex-col justify-between overflow-hidden border p-6 transition-all duration-200 hover:-translate-y-1 ${
+                transition={{ duration: 0.42, delay: index * 0.06, ease: EASE_OUT_EXPO }}
+                className={`clip-chamfer group relative flex flex-col justify-between overflow-hidden border p-6 transition-transform duration-200 hover:-translate-y-1 ${
                   isSelected
-                    ? 'surface-ruby-command border-[#F43F5E]/80 shadow-[0_18px_45px_rgba(225,29,72,0.22)]'
+                    ? 'surface-ruby-command border-[#F43F5E]/80 shadow-[0_16px_40px_rgba(225,29,72,0.2)]'
                     : 'surface-titanium border-slate-300/16 hover:border-slate-200/42'
                 }`}
               >
@@ -269,7 +265,7 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                         <span>Entry Fee Options</span>
                       </dt>
                       <dd className="font-mono-tabular mt-1 text-sm font-semibold text-white">
-                        {entrySummary}
+                        {ENTRY_SUMMARY}
                       </dd>
                     </div>
                     <div>
@@ -295,7 +291,7 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                       const el = document.getElementById('register');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`clip-chamfer flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold tracking-[0.09em] uppercase transition-all duration-200 ${
+                    className={`clip-chamfer flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold tracking-[0.09em] uppercase transition-colors duration-200 ${
                       isSelected ? 'btn-ruby-primary' : 'btn-titanium-outline'
                     }`}
                   >
@@ -315,11 +311,11 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                     )}
                   </TactileButton>
                 </div>
-              </motion.article>
+              </m.article>
             );
           })}
         </div>
       </div>
     </section>
   );
-}
+});

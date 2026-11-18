@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValueEvent,
   useScroll,
 } from 'motion/react';
@@ -17,7 +17,7 @@ const NAV_LINKS = [
   { label: 'FAQ', href: '#faq' },
 ];
 
-export function Navbar() {
+export const Navbar = memo(function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { scrollY } = useScroll();
@@ -30,14 +30,14 @@ export function Navbar() {
   });
 
   return (
-    <motion.header
+    <m.header
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-      className={`sticky top-0 z-50 border-b transition-all duration-300 backdrop-blur-xl ${
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className={`sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-200 ${
         scrolled
-          ? 'border-rose-400/25 bg-[#05070D]/95 shadow-[0_12px_36px_rgba(2,4,10,0.72)]'
-          : 'border-slate-300/12 bg-[#06080F]/88'
+          ? 'border-rose-400/25 bg-[#05070D]/95 shadow-[0_10px_28px_rgba(2,4,10,0.68)]'
+          : 'border-slate-300/12 bg-[#06080F]/90'
       }`}
     >
       <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 sm:px-6 lg:gap-8 lg:px-8">
@@ -52,10 +52,11 @@ export function Navbar() {
             alt={BRAND_CONFIG.logoAlt}
             width={40}
             height={40}
+            decoding="async"
             referrerPolicy="no-referrer"
             className="h-10 w-10 shrink-0 rounded-sm border border-slate-200/25 bg-black object-contain transition-transform duration-200 group-hover:scale-[1.05]"
           />
-          <span className="font-display text-platinum-chrome text-2xl font-extrabold tracking-[0.1em] uppercase transition-all duration-200 group-hover:tracking-[0.12em]">
+          <span className="font-display text-platinum-chrome text-2xl font-extrabold tracking-[0.1em] uppercase">
             {BRAND_CONFIG.shortName}
           </span>
         </a>
@@ -104,7 +105,7 @@ export function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation-drawer"
             aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            className="touch-tactile inline-flex h-11 w-11 items-center justify-center rounded-sm border border-slate-300/20 bg-[#0D1322] text-slate-100 transition-all duration-150 hover:border-[#F43F5E]/60 active:scale-[0.95] lg:hidden"
+            className="touch-tactile inline-flex h-11 w-11 items-center justify-center rounded-sm border border-slate-300/20 bg-[#0D1322] text-slate-100 transition-transform duration-150 hover:border-[#F43F5E]/60 active:scale-[0.95] lg:hidden"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -114,29 +115,29 @@ export function Navbar() {
       {/* Animated Mobile Navigation Drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             id="mobile-navigation-drawer"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-slate-300/12 bg-[#080C17]/98 backdrop-blur-xl lg:hidden"
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-slate-300/12 bg-[#080C17]/98 lg:hidden"
           >
             <div className="px-4 py-5">
               <nav aria-label="Mobile navigation" className="flex flex-col gap-1">
                 {NAV_LINKS.map((item, idx) => (
-                  <motion.a
+                  <m.a
                     key={item.href}
                     href={item.href}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, delay: idx * 0.035 }}
+                    transition={{ duration: 0.18, delay: idx * 0.03 }}
                     onClick={() => setMobileOpen(false)}
                     className="touch-tactile flex min-h-[44px] items-center justify-between border-b border-slate-300/8 px-2 text-sm font-semibold tracking-wider text-slate-200 uppercase transition-colors hover:text-[#FB7185] active:text-white"
                   >
                     <span>{item.label}</span>
                     <ArrowUpRight className="h-3.5 w-3.5 text-slate-400" aria-hidden="true" />
-                  </motion.a>
+                  </m.a>
                 ))}
               </nav>
 
@@ -155,9 +156,9 @@ export function Navbar() {
                 />
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
-}
+});

@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { memo } from 'react';
+import { m } from 'motion/react';
 import { ArrowRight, Check, Trophy, Wallet } from 'lucide-react';
 import { ENTRY_TIERS, type TierConfig } from '../data/scrimConfig';
 import { ChampionshipTrophyEmblem, SeriesRankInsignia } from './EsportsEmblems';
@@ -8,7 +9,6 @@ import {
   HudCornerFrame,
   ParallaxSectionAura,
   SectionHeading,
-  TelemetryScanBar,
   VIEWPORT_CONFIG,
 } from './MotionPrimitives';
 import { TactileButton } from './PremiumButtons';
@@ -31,7 +31,7 @@ const TIER_STYLES: Record<
 > = {
   steel: {
     surface:
-      'border-slate-400/25 bg-gradient-to-b from-[#131B2E] via-[#0D1322] to-[#080B14] hover:border-slate-300/55 hover:shadow-[0_18px_42px_rgba(148,163,184,0.12)]',
+      'border-slate-400/25 bg-gradient-to-b from-[#131B2E] via-[#0D1322] to-[#080B14] hover:border-slate-300/55',
     prizeClass: 'text-platinum-chrome',
     divider: 'border-slate-400/18',
     seriesTitleClass: 'text-platinum-chrome',
@@ -40,7 +40,7 @@ const TIER_STYLES: Record<
   },
   crimson: {
     surface:
-      'border-indigo-300/25 bg-gradient-to-b from-[#171E36] via-[#101528] to-[#080B14] hover:border-indigo-200/55 hover:shadow-[0_18px_42px_rgba(129,140,248,0.14)]',
+      'border-indigo-300/25 bg-gradient-to-b from-[#171E36] via-[#101528] to-[#080B14] hover:border-indigo-200/55',
     prizeClass: 'text-platinum-chrome',
     divider: 'border-indigo-300/18',
     seriesTitleClass: 'text-indigo-100',
@@ -49,7 +49,7 @@ const TIER_STYLES: Record<
   },
   blood: {
     surface:
-      'border-rose-500/40 bg-gradient-to-b from-[#2A1020] via-[#170D19] to-[#0A0C16] hover:border-rose-400/80 hover:shadow-[0_20px_48px_rgba(225,29,72,0.18)]',
+      'border-rose-500/40 bg-gradient-to-b from-[#2A1020] via-[#170D19] to-[#0A0C16] hover:border-rose-400/80',
     prizeClass: 'text-ruby-luminous',
     divider: 'border-rose-400/24',
     seriesTitleClass: 'text-rose-200',
@@ -58,7 +58,7 @@ const TIER_STYLES: Record<
   },
   obsidian: {
     surface:
-      'border-rose-400/65 bg-[linear-gradient(155deg,rgba(225,29,72,0.28)_0%,rgba(24,29,48,0.92)_48%,rgba(7,10,19,0.98)_100%)] shadow-[0_24px_60px_rgba(225,29,72,0.2)] hover:border-white/80 hover:shadow-[0_28px_68px_rgba(225,29,72,0.28)]',
+      'border-rose-400/65 bg-[linear-gradient(155deg,rgba(225,29,72,0.28)_0%,rgba(24,29,48,0.92)_48%,rgba(7,10,19,0.98)_100%)] shadow-[0_20px_50px_rgba(225,29,72,0.18)] hover:border-white/80',
     prizeClass: 'text-platinum-chrome',
     divider: 'border-rose-300/28',
     seriesTitleClass: 'text-white',
@@ -67,7 +67,10 @@ const TIER_STYLES: Record<
   },
 };
 
-export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
+export const PrizeTiers = memo(function PrizeTiers({
+  selectedTierId,
+  onSelectTier,
+}: PrizeTiersProps) {
   return (
     <section
       id="tiers"
@@ -78,15 +81,15 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
       <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-5 border-b border-slate-300/14 pb-8 md:flex-row md:items-end md:justify-between">
           <div className="flex items-start gap-4">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
+            <m.div
+              initial={{ opacity: 0, scale: 0.88 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={VIEWPORT_CONFIG}
-              transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
+              transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
               className="mt-1 hidden sm:inline-flex"
             >
               <ChampionshipTrophyEmblem className="h-14 w-14" />
-            </motion.div>
+            </m.div>
             <SectionHeading
               eyebrow="Entry Fees & Prize Pools"
               title="Four Competitive Scrim Series"
@@ -94,16 +97,16 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
             />
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
+          <m.p
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_CONFIG}
-            transition={{ duration: 0.45, delay: 0.14, ease: EASE_OUT_EXPO }}
+            transition={{ duration: 0.42, delay: 0.1, ease: EASE_OUT_EXPO }}
             className="max-w-[46ch] text-sm leading-[1.7] text-slate-300"
           >
             Fixed entry fees and guaranteed prize pools across every daily deployment window.
             Select the competitive series built for your squad.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -113,32 +116,27 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
             const isFlagship = tier.accentTone === 'obsidian';
 
             return (
-              <motion.article
+              <m.article
                 key={tier.id}
-                initial={{ opacity: 0, y: 26 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT_CONFIG}
-                transition={{ duration: 0.5, delay: index * 0.08, ease: EASE_OUT_EXPO }}
-                className={`clip-chamfer group relative flex flex-col justify-between overflow-hidden border p-6 transition-all duration-250 hover:-translate-y-1.5 ${
+                transition={{ duration: 0.46, delay: index * 0.06, ease: EASE_OUT_EXPO }}
+                className={`clip-chamfer group relative flex flex-col justify-between overflow-hidden border p-6 transition-transform duration-200 hover:-translate-y-1.5 ${
                   style.surface
                 } ${isSelected ? 'ring-2 ring-[#F43F5E]' : ''}`}
               >
                 {/* Animated Top Metallic Bar */}
-                <motion.div
+                <m.div
                   aria-hidden="true"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   viewport={VIEWPORT_CONFIG}
-                  transition={{ duration: 0.55, delay: 0.15 + index * 0.08, ease: EASE_OUT_EXPO }}
+                  transition={{ duration: 0.48, delay: 0.1 + index * 0.06, ease: EASE_OUT_EXPO }}
                   className={`pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left bg-gradient-to-r ${style.topBar}`}
                 />
 
-                {isFlagship && (
-                  <>
-                    <TelemetryScanBar />
-                    <HudCornerFrame />
-                  </>
-                )}
+                {isFlagship && <HudCornerFrame />}
 
                 <div>
                   {/* Integrated Premium Series Header + Geometric Rank Insignia */}
@@ -152,7 +150,7 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
                       <SeriesRankInsignia seriesId={tier.id} className="h-5 w-5" />
                     </div>
                     <h3
-                      className={`font-display mt-1 text-2xl font-black tracking-[0.06em] uppercase transition-all duration-200 group-hover:tracking-[0.08em] ${style.seriesTitleClass}`}
+                      className={`font-display mt-1 text-2xl font-black tracking-[0.06em] uppercase ${style.seriesTitleClass}`}
                     >
                       {tier.tierLabel}
                     </h3>
@@ -174,7 +172,7 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
                       <AnimatedCounter
                         target={tier.prizePool}
                         prefix="₹"
-                        duration={1.0 + index * 0.1}
+                        duration={0.9 + index * 0.08}
                       />
                     </p>
                   </div>
@@ -206,7 +204,7 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
                       const el = document.getElementById('register');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`clip-chamfer flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold tracking-[0.09em] uppercase transition-all duration-200 ${
+                    className={`clip-chamfer flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold tracking-[0.09em] uppercase transition-colors duration-200 ${
                       isSelected
                         ? 'btn-ruby-primary'
                         : isFlagship
@@ -232,11 +230,11 @@ export function PrizeTiers({ selectedTierId, onSelectTier }: PrizeTiersProps) {
                     )}
                   </TactileButton>
                 </div>
-              </motion.article>
+              </m.article>
             );
           })}
         </div>
       </div>
     </section>
   );
-}
+});

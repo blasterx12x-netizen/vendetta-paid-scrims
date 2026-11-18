@@ -1,5 +1,5 @@
-import { useRef, useState, type ReactNode, type PointerEvent } from 'react';
-import { motion } from 'motion/react';
+import { memo, useCallback, useEffect, useRef, useState, type ReactNode, type PointerEvent } from 'react';
+import { m } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 
 interface RippleWave {
@@ -11,18 +11,26 @@ interface RippleWave {
 function useTapRipple() {
   const [ripples, setRipples] = useState<RippleWave[]>([]);
   const nextId = useRef(0);
+  const timersRef = useRef<number[]>([]);
 
-  const spawnRipple = (e: PointerEvent<HTMLElement>) => {
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach((t) => window.clearTimeout(t));
+    };
+  }, []);
+
+  const spawnRipple = useCallback((e: PointerEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX ? e.clientX - rect.left : rect.width / 2;
     const y = e.clientY ? e.clientY - rect.top : rect.height / 2;
     const id = ++nextId.current;
 
-    setRipples((prev) => [...prev.slice(-2), { id, x, y }]);
-    window.setTimeout(() => {
+    setRipples((prev) => [...prev.slice(-1), { id, x, y }]);
+    const timer = window.setTimeout(() => {
       setRipples((prev) => prev.filter((r) => r.id !== id));
-    }, 560);
-  };
+    }, 520);
+    timersRef.current.push(timer);
+  }, []);
 
   return { ripples, spawnRipple };
 }
@@ -30,14 +38,13 @@ function useTapRipple() {
 /**
  * Official WhatsApp Vector Glyph
  */
-export function WhatsAppBrandIcon({ className = 'h-4 w-4' }: { className?: string }) {
+export const WhatsAppBrandIcon = memo(function WhatsAppBrandIcon({
+  className = 'h-4 w-4',
+}: {
+  className?: string;
+}) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
       <path
         d="M12.04 2C6.51 2 2.02 6.48 2.02 12c0 1.88.52 3.72 1.51 5.31L2 22l4.84-1.48A9.97 9.97 0 0 0 12.04 22C17.56 22 22.05 17.51 22.05 12S17.56 2 12.04 2Z"
         stroke="currentColor"
@@ -51,19 +58,18 @@ export function WhatsAppBrandIcon({ className = 'h-4 w-4' }: { className?: strin
       />
     </svg>
   );
-}
+});
 
 /**
  * Official Instagram Vector Glyph
  */
-export function InstagramBrandIcon({ className = 'h-4 w-4' }: { className?: string }) {
+export const InstagramBrandIcon = memo(function InstagramBrandIcon({
+  className = 'h-4 w-4',
+}: {
+  className?: string;
+}) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
       <rect
         x="3"
         y="3"
@@ -78,7 +84,7 @@ export function InstagramBrandIcon({ className = 'h-4 w-4' }: { className?: stri
       <circle cx="17.25" cy="6.75" r="1.15" fill="currentColor" />
     </svg>
   );
-}
+});
 
 interface PortalLinkProps {
   href: string;
@@ -99,7 +105,7 @@ const SIZE_CLASSES: Record<NonNullable<PortalLinkProps['size']>, string> = {
 /**
  * Coordinated Official WhatsApp Channel Portal Button
  */
-export function WhatsAppPortalButton({
+export const WhatsAppPortalButton = memo(function WhatsAppPortalButton({
   href,
   label,
   sublabel,
@@ -108,42 +114,30 @@ export function WhatsAppPortalButton({
   onClick,
 }: PortalLinkProps) {
   const { ripples, spawnRipple } = useTapRipple();
-  const [pressed, setPressed] = useState(false);
 
   return (
-    <motion.a
+    <m.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       onClick={onClick}
-      onPointerDown={(e) => {
-        spawnRipple(e);
-        setPressed(true);
-      }}
-      onPointerUp={() => setPressed(false)}
-      onPointerLeave={() => setPressed(false)}
-      onPointerCancel={() => setPressed(false)}
+      onPointerDown={spawnRipple}
       whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.965, y: 1.5 }}
+      whileTap={{ scale: 0.968, y: 1.5 }}
       transition={{ type: 'spring', stiffness: 520, damping: 28, mass: 0.6 }}
       className={`btn-whatsapp-portal clip-chamfer touch-tactile group inline-flex shrink-0 items-center justify-center font-bold tracking-[0.1em] uppercase whitespace-nowrap select-none ${SIZE_CLASSES[size]} ${className}`}
     >
-      {/* Pointer-Originating Specular Ripple Waves */}
       {ripples.map((ripple) => (
         <span
           key={ripple.id}
           aria-hidden="true"
           style={{ left: ripple.x, top: ripple.y }}
-          className="animate-tap-ripple pointer-events-none absolute h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(167,243,208,0.55)_0%,rgba(52,211,153,0.2)_45%,transparent_72%)]"
+          className="animate-tap-ripple pointer-events-none absolute h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(167,243,208,0.52)_0%,rgba(52,211,153,0.18)_45%,transparent_72%)]"
         />
       ))}
 
       <span className="relative z-10 flex items-center gap-2.5">
-        <span
-          className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border border-[#34D399]/40 bg-[#062C1E]/85 text-[#4ADE80] transition-transform duration-200 group-hover:scale-110 group-hover:rotate-[-4deg] ${
-            pressed ? 'scale-90' : ''
-          }`}
-        >
+        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border border-[#34D399]/40 bg-[#062C1E]/85 text-[#4ADE80] transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-3">
           <WhatsAppBrandIcon className="h-3.5 w-3.5" />
         </span>
         <span className="flex flex-col text-left leading-tight">
@@ -158,18 +152,16 @@ export function WhatsAppPortalButton({
 
       <ArrowUpRight
         aria-hidden="true"
-        className={`relative z-10 h-4 w-4 shrink-0 text-[#6EE7B7] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-          pressed ? 'translate-x-0.5 -translate-y-0.5 scale-90' : ''
-        }`}
+        className="relative z-10 h-4 w-4 shrink-0 text-[#6EE7B7] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       />
-    </motion.a>
+    </m.a>
   );
-}
+});
 
 /**
  * Coordinated Official Instagram Portal Button
  */
-export function InstagramPortalButton({
+export const InstagramPortalButton = memo(function InstagramPortalButton({
   href,
   label,
   sublabel,
@@ -178,42 +170,30 @@ export function InstagramPortalButton({
   onClick,
 }: PortalLinkProps) {
   const { ripples, spawnRipple } = useTapRipple();
-  const [pressed, setPressed] = useState(false);
 
   return (
-    <motion.a
+    <m.a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       onClick={onClick}
-      onPointerDown={(e) => {
-        spawnRipple(e);
-        setPressed(true);
-      }}
-      onPointerUp={() => setPressed(false)}
-      onPointerLeave={() => setPressed(false)}
-      onPointerCancel={() => setPressed(false)}
+      onPointerDown={spawnRipple}
       whileHover={{ y: -2 }}
-      whileTap={{ scale: 0.965, y: 1.5 }}
+      whileTap={{ scale: 0.968, y: 1.5 }}
       transition={{ type: 'spring', stiffness: 520, damping: 28, mass: 0.6 }}
       className={`btn-instagram-portal clip-chamfer touch-tactile group inline-flex shrink-0 items-center justify-center font-bold tracking-[0.1em] uppercase whitespace-nowrap select-none ${SIZE_CLASSES[size]} ${className}`}
     >
-      {/* Pointer-Originating Specular Ripple Waves */}
       {ripples.map((ripple) => (
         <span
           key={ripple.id}
           aria-hidden="true"
           style={{ left: ripple.x, top: ripple.y }}
-          className="animate-tap-ripple pointer-events-none absolute h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(251,207,232,0.55)_0%,rgba(244,114,182,0.22)_45%,transparent_72%)]"
+          className="animate-tap-ripple pointer-events-none absolute h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(251,207,232,0.52)_0%,rgba(244,114,182,0.2)_45%,transparent_72%)]"
         />
       ))}
 
       <span className="relative z-10 flex items-center gap-2.5">
-        <span
-          className={`inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border border-[#F472B6]/45 bg-[#2A0E24]/85 text-[#F9A8D4] transition-transform duration-200 group-hover:scale-110 group-hover:rotate-[4deg] ${
-            pressed ? 'scale-90' : ''
-          }`}
-        >
+        <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-sm border border-[#F472B6]/45 bg-[#2A0E24]/85 text-[#F9A8D4] transition-transform duration-200 group-hover:scale-110 group-hover:rotate-3">
           <InstagramBrandIcon className="h-3.5 w-3.5" />
         </span>
         <span className="flex flex-col text-left leading-tight">
@@ -228,16 +208,14 @@ export function InstagramPortalButton({
 
       <ArrowUpRight
         aria-hidden="true"
-        className={`relative z-10 h-4 w-4 shrink-0 text-[#F9A8D4] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-          pressed ? 'translate-x-0.5 -translate-y-0.5 scale-90' : ''
-        }`}
+        className="relative z-10 h-4 w-4 shrink-0 text-[#F9A8D4] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       />
-    </motion.a>
+    </m.a>
   );
-}
+});
 
 /**
- * Tactile Animated Button Wrapper for Interactive Controls (Schedule, Tiers, Tabs, Copy)
+ * Tactile Animated Button Wrapper for Interactive Controls
  */
 interface TactileButtonProps {
   children: ReactNode;
@@ -252,7 +230,7 @@ interface TactileButtonProps {
   id?: string;
 }
 
-export function TactileButton({
+export const TactileButton = memo(function TactileButton({
   children,
   onClick,
   type = 'button',
@@ -262,7 +240,7 @@ export function TactileButton({
   const { ripples, spawnRipple } = useTapRipple();
 
   return (
-    <motion.button
+    <m.button
       type={type}
       onClick={onClick}
       onPointerDown={spawnRipple}
@@ -283,9 +261,9 @@ export function TactileButton({
       <span className="relative z-10 inline-flex w-full items-center justify-center gap-2">
         {children}
       </span>
-    </motion.button>
+    </m.button>
   );
-}
+});
 
 /**
  * Tactile Animated Anchor Wrapper for Internal Navigation Buttons
@@ -296,11 +274,15 @@ interface TactileLinkProps {
   className?: string;
 }
 
-export function TactileLink({ href, children, className = '' }: TactileLinkProps) {
+export const TactileLink = memo(function TactileLink({
+  href,
+  children,
+  className = '',
+}: TactileLinkProps) {
   const { ripples, spawnRipple } = useTapRipple();
 
   return (
-    <motion.a
+    <m.a
       href={href}
       onPointerDown={spawnRipple}
       whileHover={{ y: -2 }}
@@ -319,6 +301,6 @@ export function TactileLink({ href, children, className = '' }: TactileLinkProps
       <span className="relative z-10 inline-flex items-center justify-center gap-2">
         {children}
       </span>
-    </motion.a>
+    </m.a>
   );
-}
+});

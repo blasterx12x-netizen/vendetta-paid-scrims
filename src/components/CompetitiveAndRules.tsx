@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { memo, useState } from 'react';
+import { AnimatePresence, m } from 'motion/react';
 import { Headset, Layers, ShieldCheck, Trophy } from 'lucide-react';
 import { COMPETITIVE_PILLARS, RULES_CATEGORIES } from '../data/scrimConfig';
 import { BattleShieldEmblem } from './EsportsEmblems';
@@ -24,7 +24,7 @@ const RULE_TAB_ICONS: Record<string, typeof Trophy> = {
   'match-conduct': Headset,
 };
 
-export function CompetitiveAndRules() {
+export const CompetitiveAndRules = memo(function CompetitiveAndRules() {
   const [activeRuleId, setActiveRuleId] = useState<string>(RULES_CATEGORIES[0].id);
   const activeGroup =
     RULES_CATEGORIES.find((group) => group.id === activeRuleId) ?? RULES_CATEGORIES[0];
@@ -36,22 +36,20 @@ export function CompetitiveAndRules() {
         id="experience"
         className="relative overflow-hidden border-b border-slate-300/14 bg-gradient-to-b from-[#0A0E19] via-[#0E1424] to-[#080B14] py-16 md:py-24"
       >
-        <TelemetryScanBar />
-
         <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
             {/* Left Editorial Summary + Animated Battle Shield Emblem */}
             <div className="lg:col-span-5">
               <div className="flex items-start gap-4">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85 }}
+                <m.div
+                  initial={{ opacity: 0, scale: 0.88 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={VIEWPORT_CONFIG}
-                  transition={{ duration: 0.48, ease: EASE_OUT_EXPO }}
+                  transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
                   className="mt-0.5 shrink-0"
                 >
                   <BattleShieldEmblem className="h-12 w-12" />
-                </motion.div>
+                </m.div>
                 <SectionHeading
                   eyebrow="Competitive Experience"
                   title="Built Like an Official Circuit"
@@ -59,23 +57,23 @@ export function CompetitiveAndRules() {
                 />
               </div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 12 }}
+              <m.p
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT_CONFIG}
-                transition={{ duration: 0.45, delay: 0.14, ease: EASE_OUT_EXPO }}
+                transition={{ duration: 0.42, delay: 0.1, ease: EASE_OUT_EXPO }}
                 className="mt-4 text-sm leading-[1.75] text-slate-300 sm:text-[15px]"
               >
                 Serious Free Fire rosters in India demand punctual custom rooms,
                 uncompromising anti-cheat enforcement, and disciplined administration.
                 Every VENDETTA session delivers championship-caliber practice.
-              </motion.p>
+              </m.p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
+              <m.div
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={VIEWPORT_CONFIG}
-                transition={{ duration: 0.45, delay: 0.22, ease: EASE_OUT_EXPO }}
+                transition={{ duration: 0.42, delay: 0.16, ease: EASE_OUT_EXPO }}
                 className="mt-8 border-t border-slate-300/14 pt-6"
               >
                 <div className="flex items-center gap-3 text-sm font-semibold text-slate-100">
@@ -86,7 +84,7 @@ export function CompetitiveAndRules() {
                   />
                   <span>Verified Squad Lobbies · Indian Competitive Standards</span>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
 
             {/* Right Asymmetric 2x2 Grid */}
@@ -94,13 +92,13 @@ export function CompetitiveAndRules() {
               {COMPETITIVE_PILLARS.map((pillar, idx) => {
                 const PillarIcon = PILLAR_ICONS[pillar.id] ?? ShieldCheck;
                 return (
-                  <motion.article
+                  <m.article
                     key={pillar.id}
-                    initial={{ opacity: 0, y: 20, x: idx % 2 === 0 ? -8 : 8 }}
-                    whileInView={{ opacity: 1, y: 0, x: 0 }}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={VIEWPORT_CONFIG}
-                    transition={{ duration: 0.46, delay: idx * 0.08, ease: EASE_OUT_EXPO }}
-                    className="surface-titanium clip-chamfer group relative flex flex-col justify-between overflow-hidden border border-slate-300/16 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-slate-200/45"
+                    transition={{ duration: 0.42, delay: idx * 0.06, ease: EASE_OUT_EXPO }}
+                    className="surface-titanium clip-chamfer group relative flex flex-col justify-between overflow-hidden border border-slate-300/16 p-6 transition-transform duration-200 hover:-translate-y-1 hover:border-slate-200/45"
                   >
                     <div
                       aria-hidden="true"
@@ -127,7 +125,7 @@ export function CompetitiveAndRules() {
                         {pillar.description}
                       </p>
                     </div>
-                  </motion.article>
+                  </m.article>
                 );
               })}
             </div>
@@ -148,7 +146,7 @@ export function CompetitiveAndRules() {
               symbol="rules"
             />
 
-            {/* Functional Tab Selector with Shared Layout Active Indicator */}
+            {/* Functional Tab Selector */}
             <div
               role="tablist"
               aria-label="Rulebook categories"
@@ -163,7 +161,7 @@ export function CompetitiveAndRules() {
                       role="tab"
                       aria-selected={active}
                       onClick={() => setActiveRuleId(group.id)}
-                      className={`clip-chamfer min-h-[42px] whitespace-nowrap px-4 py-2 text-xs font-bold tracking-[0.08em] uppercase transition-all duration-150 ${
+                      className={`clip-chamfer min-h-[42px] whitespace-nowrap px-4 py-2 text-xs font-bold tracking-[0.08em] uppercase transition-colors duration-150 ${
                         active
                           ? 'btn-ruby-primary'
                           : 'btn-titanium-outline text-slate-300 hover:text-white'
@@ -176,13 +174,12 @@ export function CompetitiveAndRules() {
                       />
                       <span>{group.title}</span>
                     </TactileButton>
-                    {active && (
-                      <motion.span
-                        layoutId="rulebook-active-tab-line"
-                        transition={{ type: 'spring', stiffness: 450, damping: 32 }}
-                        className="pointer-events-none absolute right-3 -bottom-1 left-3 h-[2px] bg-[#FDA4AF]"
-                      />
-                    )}
+                    <span
+                      aria-hidden="true"
+                      className={`pointer-events-none absolute right-3 -bottom-1 left-3 h-[2px] origin-center bg-[#FDA4AF] transition-transform duration-200 ${
+                        active ? 'scale-x-100' : 'scale-x-0'
+                      }`}
+                    />
                   </div>
                 );
               })}
@@ -190,23 +187,23 @@ export function CompetitiveAndRules() {
           </div>
 
           {/* Active Rules Panel */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
+          <m.div
+            initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_CONFIG}
-            transition={{ duration: 0.48, ease: EASE_OUT_EXPO }}
+            transition={{ duration: 0.44, ease: EASE_OUT_EXPO }}
             role="tabpanel"
             aria-label={activeGroup.title}
             className="surface-ruby-command clip-chamfer-lg relative mt-8 overflow-hidden border border-rose-400/25 p-6 sm:p-8"
           >
             <TelemetryScanBar />
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={activeGroup.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25, ease: EASE_OUT_EXPO }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: EASE_OUT_EXPO }}
               >
                 <div className="border-b border-slate-300/14 pb-5">
                   <h3 className="font-display text-3xl font-extrabold tracking-[0.04em] text-white uppercase">
@@ -217,25 +214,24 @@ export function CompetitiveAndRules() {
 
                 <ol className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
                   {activeGroup.rules.map((ruleText, idx) => (
-                    <motion.li
+                    <li
                       key={`${activeGroup.id}-${idx}`}
-                      initial={{ opacity: 0, x: -6 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.25, delay: idx * 0.04, ease: EASE_OUT_EXPO }}
                       className="flex items-start gap-4 border-b border-slate-300/10 pb-4 md:border-b-0 md:pb-0"
                     >
                       <span className="font-mono-tabular mt-0.5 shrink-0 text-xs font-bold tracking-widest text-[#FB7185]">
                         {String(idx + 1).padStart(2, '0')}.
                       </span>
                       <p className="text-sm leading-[1.7] text-slate-200">{ruleText}</p>
-                    </motion.li>
+                    </li>
                   ))}
                 </ol>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </>
   );
-}
+});
+
+export default CompetitiveAndRules;

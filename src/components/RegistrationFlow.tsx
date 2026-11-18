@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
+import { memo, useState } from 'react';
+import { m } from 'motion/react';
 import {
   BadgeCheck,
   Check,
@@ -35,7 +35,7 @@ interface RegistrationFlowProps {
 
 const STEP_ICONS = [Clock, Wallet, Megaphone, Headset, UserPlus, BadgeCheck];
 
-export function RegistrationFlow({
+export const RegistrationFlow = memo(function RegistrationFlow({
   selectedLobbyId,
   selectedTierId,
   onSelectLobby,
@@ -78,11 +78,11 @@ export function RegistrationFlow({
             symbol="register"
           />
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
+          <m.div
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_CONFIG}
-            transition={{ duration: 0.45, delay: 0.14, ease: EASE_OUT_EXPO }}
+            transition={{ duration: 0.42, delay: 0.1, ease: EASE_OUT_EXPO }}
             className="flex items-start gap-2.5 text-xs leading-[1.65] text-slate-300 lg:max-w-[44ch]"
           >
             <Megaphone
@@ -95,7 +95,7 @@ export function RegistrationFlow({
               admin listed inside our WhatsApp Channel. No automated online payment
               gateway is used.
             </span>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Two-Column Split: 6 Chamfered Steps + Ruby Command Slot Inquiry Desk */}
@@ -105,22 +105,17 @@ export function RegistrationFlow({
             {REGISTRATION_STEPS.map((item, idx) => {
               const StepIcon = STEP_ICONS[idx] ?? UserPlus;
               return (
-                <motion.div
+                <m.div
                   key={item.step}
-                  initial={{ opacity: 0, y: 18, x: idx % 2 === 0 ? -8 : 8 }}
-                  whileInView={{ opacity: 1, y: 0, x: 0 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={VIEWPORT_CONFIG}
-                  transition={{ duration: 0.44, delay: idx * 0.06, ease: EASE_OUT_EXPO }}
-                  className="surface-titanium clip-chamfer group relative flex flex-col justify-between overflow-hidden border border-slate-300/15 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-200/45 sm:p-6"
+                  transition={{ duration: 0.4, delay: idx * 0.05, ease: EASE_OUT_EXPO }}
+                  className="surface-titanium clip-chamfer group relative flex flex-col justify-between overflow-hidden border border-slate-300/15 p-5 transition-transform duration-200 hover:-translate-y-0.5 hover:border-slate-200/45 sm:p-6"
                 >
-                  {/* Sequential Top Telemetry Bar */}
-                  <motion.div
+                  <div
                     aria-hidden="true"
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={VIEWPORT_CONFIG}
-                    transition={{ duration: 0.5, delay: 0.12 + idx * 0.06, ease: EASE_OUT_EXPO }}
-                    className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] origin-left bg-gradient-to-r from-[#F43F5E]/80 via-slate-200/50 to-transparent opacity-60 transition-opacity duration-200 group-hover:opacity-100"
+                    className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-[#F43F5E]/70 via-slate-200/45 to-transparent opacity-60 transition-opacity duration-200 group-hover:opacity-100"
                   />
 
                   <div>
@@ -137,24 +132,24 @@ export function RegistrationFlow({
                         0{idx + 1}/06
                       </span>
                     </div>
-                    <h3 className="mt-3.5 text-[15px] font-bold leading-snug text-white transition-colors group-hover:text-slate-50">
+                    <h3 className="mt-3.5 text-[15px] font-bold leading-snug text-white">
                       {item.title}
                     </h3>
                     <p className="mt-2 text-sm leading-[1.65] text-slate-300">
                       {item.detail}
                     </p>
                   </div>
-                </motion.div>
+                </m.div>
               );
             })}
           </div>
 
           {/* Right: Interactive Slot Inquiry Helper & Coordinated WhatsApp Portal CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.985 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          <m.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={VIEWPORT_CONFIG}
-            transition={{ duration: 0.52, delay: 0.12, ease: EASE_OUT_EXPO }}
+            transition={{ duration: 0.46, delay: 0.1, ease: EASE_OUT_EXPO }}
             className="surface-ruby-command clip-chamfer-lg group relative flex flex-col justify-between overflow-hidden border border-rose-400/35 p-6 sm:p-8 lg:col-span-5"
           >
             <TelemetryScanBar />
@@ -190,7 +185,7 @@ export function RegistrationFlow({
                       <TactileButton
                         key={slot.id}
                         onClick={() => onSelectLobby(slot.id)}
-                        className={`font-mono-tabular min-h-[42px] whitespace-nowrap rounded-sm px-2 py-2 text-xs font-bold transition-all duration-150 ${
+                        className={`font-mono-tabular min-h-[42px] whitespace-nowrap rounded-sm px-2 py-2 text-xs font-bold transition-colors duration-150 ${
                           active
                             ? 'btn-platinum-primary'
                             : 'border border-slate-300/20 bg-[#080C17] text-slate-200 hover:border-rose-400/60'
@@ -216,7 +211,7 @@ export function RegistrationFlow({
                       <TactileButton
                         key={tier.id}
                         onClick={() => onSelectTier(tier.id)}
-                        className={`flex min-h-[48px] w-full items-center justify-between rounded-sm px-3 py-2 text-xs transition-all duration-150 ${
+                        className={`flex min-h-[48px] w-full items-center justify-between rounded-sm px-3 py-2 text-xs transition-colors duration-150 ${
                           active
                             ? 'btn-platinum-primary font-bold'
                             : 'border border-slate-300/20 bg-[#080C17] text-slate-200 hover:border-rose-400/60'
@@ -268,7 +263,7 @@ export function RegistrationFlow({
                   </span>
                   <TactileButton
                     onClick={handleCopyInquiry}
-                    className="btn-titanium-outline inline-flex min-h-[32px] items-center gap-1.5 rounded-sm px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase transition-all"
+                    className="btn-titanium-outline inline-flex min-h-[32px] items-center gap-1.5 rounded-sm px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase transition-colors"
                   >
                     {copied ? (
                       <>
@@ -283,15 +278,9 @@ export function RegistrationFlow({
                     )}
                   </TactileButton>
                 </div>
-                <motion.pre
-                  key={`${selectedLobby.id}-${selectedTier.id}`}
-                  initial={{ opacity: 0.7 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.2 }}
-                  className="mt-2 whitespace-pre-wrap font-sans text-xs leading-relaxed text-slate-200"
-                >
+                <pre className="mt-2 whitespace-pre-wrap font-sans text-xs leading-relaxed text-slate-200">
                   {inquiryMessage}
-                </motion.pre>
+                </pre>
               </div>
             </div>
 
@@ -314,9 +303,11 @@ export function RegistrationFlow({
                 </span>
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
   );
-}
+});
+
+export default RegistrationFlow;

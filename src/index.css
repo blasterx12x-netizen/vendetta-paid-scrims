@@ -82,6 +82,14 @@
   color: transparent;
 }
 
+/* High-Contrast Metallic Keyword Emphasis (Static Paint, Zero Frame Reflow) */
+.text-keyword-shimmer {
+  background: linear-gradient(110deg, #F8FAFC 15%, #FDA4AF 52%, #E2E8F0 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Chamfered International Esports Card Clips */
 .clip-chamfer {
   clip-path: polygon(
@@ -105,22 +113,20 @@
   );
 }
 
-/* Cold Titanium Glass Surface */
+/* Cold Titanium Surface (Optimized: No Multi-Card Backdrop Blur Readback on Android) */
 .surface-titanium {
-  background: linear-gradient(165deg, rgba(20, 27, 45, 0.86) 0%, rgba(10, 14, 24, 0.94) 100%);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(165deg, rgba(20, 27, 45, 0.94) 0%, rgba(10, 14, 24, 0.98) 100%);
   box-shadow:
     inset 0 1px 0 rgba(226, 232, 240, 0.12),
-    0 16px 38px rgba(2, 4, 10, 0.55);
+    0 14px 32px rgba(2, 4, 10, 0.5);
 }
 
-/* Luminous Ruby-Steel Command Surface */
+/* Luminous Ruby-Steel Command Surface (Optimized Composite) */
 .surface-ruby-command {
-  background: linear-gradient(145deg, rgba(159, 18, 57, 0.34) 0%, rgba(28, 16, 30, 0.92) 48%, rgba(9, 12, 21, 0.98) 100%);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(145deg, rgba(135, 18, 50, 0.38) 0%, rgba(24, 15, 29, 0.95) 48%, rgba(9, 12, 21, 0.99) 100%);
   box-shadow:
     inset 0 1px 0 rgba(253, 164, 175, 0.22),
-    0 20px 50px rgba(136, 19, 55, 0.25);
+    0 18px 42px rgba(136, 19, 55, 0.22);
 }
 
 /* Primary Brushed Platinum Chrome Action Button */
@@ -132,7 +138,7 @@
   border: 1px solid rgba(255, 255, 255, 0.7);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 10px 28px rgba(226, 232, 240, 0.16);
+    0 10px 26px rgba(226, 232, 240, 0.16);
 }
 
 .btn-platinum-primary::after {
@@ -140,20 +146,21 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.65) 50%, transparent 75%);
-  transform: translateX(-115%);
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-115%, 0, 0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
-.btn-platinum-primary:hover::after {
-  transform: translateX(115%);
-}
-
-.btn-platinum-primary:hover {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 55%, #DCE4F0 100%);
-  box-shadow:
-    inset 0 1px 0 #FFFFFF,
-    0 14px 34px rgba(226, 232, 240, 0.26);
+@media (hover: hover) {
+  .btn-platinum-primary:hover::after {
+    transform: translate3d(115%, 0, 0);
+  }
+  .btn-platinum-primary:hover {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 55%, #DCE4F0 100%);
+    box-shadow:
+      inset 0 1px 0 #FFFFFF,
+      0 14px 32px rgba(226, 232, 240, 0.24);
+  }
 }
 
 /* Primary Luminous Ruby-Crimson Action Button */
@@ -165,7 +172,7 @@
   border: 1px solid rgba(253, 164, 175, 0.45);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    0 10px 28px rgba(225, 29, 72, 0.28);
+    0 10px 26px rgba(225, 29, 72, 0.26);
 }
 
 .btn-ruby-primary::after {
@@ -173,121 +180,89 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.26) 50%, transparent 75%);
-  transform: translateX(-115%);
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-115%, 0, 0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
-.btn-ruby-primary:hover::after {
-  transform: translateX(115%);
-}
-
-.btn-ruby-primary:hover {
-  background: linear-gradient(135deg, #FB7185 0%, #E11D48 52%, #BE123C 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.35),
-    0 14px 36px rgba(244, 63, 94, 0.38);
+@media (hover: hover) {
+  .btn-ruby-primary:hover::after {
+    transform: translate3d(115%, 0, 0);
+  }
+  .btn-ruby-primary:hover {
+    background: linear-gradient(135deg, #FB7185 0%, #E11D48 52%, #BE123C 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 14px 34px rgba(244, 63, 94, 0.35);
+  }
 }
 
 /* Secondary Steel-Chrome Outline Button */
 .btn-titanium-outline {
-  background: linear-gradient(180deg, rgba(22, 30, 50, 0.86) 0%, rgba(12, 16, 29, 0.96) 100%);
+  background: linear-gradient(180deg, rgba(22, 30, 50, 0.9) 0%, rgba(12, 16, 29, 0.98) 100%);
   border: 1px solid rgba(203, 213, 225, 0.24);
   color: #F2F5FA;
   box-shadow: inset 0 1px 0 rgba(226, 232, 240, 0.08);
 }
 
-.btn-titanium-outline:hover {
-  background: linear-gradient(180deg, rgba(31, 42, 68, 0.94) 0%, rgba(17, 23, 40, 0.98) 100%);
-  border-color: rgba(244, 63, 94, 0.55);
+@media (hover: hover) {
+  .btn-titanium-outline:hover {
+    background: linear-gradient(180deg, rgba(31, 42, 68, 0.96) 0%, rgba(17, 23, 40, 0.99) 100%);
+    border-color: rgba(244, 63, 94, 0.55);
+  }
 }
 
-/* Coordinated Official WhatsApp Portal Button (Deep Obsidian-Emerald + Jade Highlights) */
+/* Coordinated Official WhatsApp Portal Button (GPU-only Transform & Opacity Hover) */
 .btn-whatsapp-portal {
   position: relative;
   overflow: hidden;
-  background-image: linear-gradient(
-    125deg,
-    #072016 0%,
-    #0F5136 32%,
-    #188657 52%,
-    #0E4B32 72%,
-    #072016 100%
-  );
-  background-size: 210% 210%;
-  background-position: 0% 50%;
+  background: linear-gradient(125deg, #072016 0%, #0F5136 38%, #188657 58%, #0A2D1F 100%);
   color: #ECFDF5;
   border: 1px solid rgba(52, 211, 153, 0.48);
   box-shadow:
     inset 0 1px 0 rgba(167, 243, 208, 0.34),
-    inset 0 -1px 0 rgba(6, 78, 59, 0.5),
-    0 12px 30px rgba(16, 185, 129, 0.22),
-    0 2px 6px rgba(0, 0, 0, 0.45);
+    0 10px 26px rgba(16, 185, 129, 0.2);
   transition:
-    background-position 0.65s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.25s ease;
+    border-color 0.22s ease;
 }
 
 .btn-whatsapp-portal::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 22%, rgba(167, 243, 208, 0.24) 50%, transparent 78%);
-  transform: translateX(-120%);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(110deg, transparent 22%, rgba(167, 243, 208, 0.26) 50%, transparent 78%);
+  transform: translate3d(-120%, 0, 0);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 @media (hover: hover) {
   .btn-whatsapp-portal:hover {
-    background-position: 100% 50%;
-    border-color: rgba(110, 231, 183, 0.78);
-    box-shadow:
-      inset 0 1px 0 rgba(209, 250, 229, 0.48),
-      0 16px 38px rgba(37, 211, 102, 0.3),
-      0 4px 12px rgba(0, 0, 0, 0.55);
+    border-color: rgba(110, 231, 183, 0.8);
   }
-
   .btn-whatsapp-portal:hover::after {
-    transform: translateX(120%);
+    transform: translate3d(120%, 0, 0);
   }
 }
 
 .btn-whatsapp-portal:active {
   border-color: rgba(110, 231, 183, 0.9);
-  box-shadow:
-    inset 0 2px 6px rgba(4, 24, 15, 0.65),
-    0 6px 18px rgba(37, 211, 102, 0.26);
 }
 
-/* Coordinated Official Instagram Portal Button (Obsidian-Plum + Magenta/Sunset-Rose Gradient) */
+/* Coordinated Official Instagram Portal Button (GPU-only Transform & Opacity Hover) */
 .btn-instagram-portal {
   position: relative;
   overflow: hidden;
-  background-image: linear-gradient(
-    125deg,
-    #1B0C24 0%,
-    #5E1E59 32%,
-    #B6296C 52%,
-    #7B2259 74%,
-    #190B21 100%
-  );
-  background-size: 210% 210%;
-  background-position: 0% 50%;
+  background: linear-gradient(125deg, #1B0C24 0%, #5E1E59 36%, #B6296C 58%, #190B21 100%);
   color: #FDF2F8;
   border: 1px solid rgba(244, 114, 182, 0.45);
   box-shadow:
     inset 0 1px 0 rgba(251, 207, 232, 0.3),
-    inset 0 -1px 0 rgba(80, 7, 36, 0.5),
-    0 12px 30px rgba(225, 48, 108, 0.22),
-    0 2px 6px rgba(0, 0, 0, 0.45);
+    0 10px 26px rgba(225, 48, 108, 0.2);
   transition:
-    background-position 0.65s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.25s ease;
+    border-color 0.22s ease;
 }
 
 .btn-instagram-portal::after {
@@ -295,47 +270,38 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(110deg, transparent 22%, rgba(253, 186, 116, 0.24) 50%, transparent 78%);
-  transform: translateX(-120%);
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(-120%, 0, 0);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 @media (hover: hover) {
   .btn-instagram-portal:hover {
-    background-position: 100% 50%;
-    border-color: rgba(249, 168, 212, 0.78);
-    box-shadow:
-      inset 0 1px 0 rgba(252, 231, 243, 0.45),
-      0 16px 38px rgba(225, 48, 108, 0.32),
-      0 4px 12px rgba(0, 0, 0, 0.55);
+    border-color: rgba(249, 168, 212, 0.8);
   }
-
   .btn-instagram-portal:hover::after {
-    transform: translateX(120%);
+    transform: translate3d(120%, 0, 0);
   }
 }
 
 .btn-instagram-portal:active {
   border-color: rgba(249, 168, 212, 0.9);
-  box-shadow:
-    inset 0 2px 6px rgba(34, 6, 28, 0.65),
-    0 6px 18px rgba(225, 48, 108, 0.28);
 }
 
-/* Pointer-Originating Specular Tap/Click Ripple */
+/* Pointer-Originating Specular Tap/Click Ripple (Transform + Opacity Only) */
 @keyframes tap-ripple-expand {
   0% {
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate3d(-50%, -50%, 0) scale(0);
     opacity: 0.7;
   }
   100% {
-    transform: translate(-50%, -50%) scale(3.2);
+    transform: translate3d(-50%, -50%, 0) scale(3.1);
     opacity: 0;
   }
 }
 
 .animate-tap-ripple {
-  animation: tap-ripple-expand 540ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: tap-ripple-expand 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Android / Touch Optimization */
@@ -344,7 +310,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Subtle luxury levitation */
+/* Subtle luxury levitation (GPU Transform Only) */
 @keyframes float-levitate {
   0%, 100% {
     transform: translate3d(0, 0, 0);
@@ -358,7 +324,7 @@
   animation: float-levitate 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-/* Slow Architectural Grid Drift */
+/* Slow Architectural Grid Drift (Desktop Only to Preserve Android 60fps) */
 @keyframes grid-drift {
   0% {
     transform: translate3d(0, 0, 0);
@@ -368,30 +334,32 @@
   }
 }
 
-.animate-grid-drift {
-  animation: grid-drift 36s linear infinite;
+@media (min-width: 768px) {
+  .animate-grid-drift {
+    animation: grid-drift 40s linear infinite;
+  }
 }
 
-/* Cinematic Diagonal Beam Breathing */
+/* Cinematic Diagonal Beam Breathing (No Blur Filter) */
 @keyframes beam-drift {
   0%, 100% {
-    transform: rotate(-22deg) translate3d(0, 0, 0) scale(1);
+    transform: rotate(-22deg) translate3d(0, 0, 0);
     opacity: 0.55;
   }
   50% {
-    transform: rotate(-20deg) translate3d(-26px, 14px, 0) scale(1.06);
+    transform: rotate(-20deg) translate3d(-20px, 10px, 0);
     opacity: 0.85;
   }
 }
 
 .animate-beam-drift {
-  animation: beam-drift 14s ease-in-out infinite;
+  animation: beam-drift 15s ease-in-out infinite;
 }
 
-/* Thin Horizontal Energy Scan Trail */
+/* Thin Horizontal Energy Scan Trail (Transform + Opacity Only) */
 @keyframes scan-sweep {
   0% {
-    transform: translateX(-100%);
+    transform: translate3d(-100%, 0, 0);
     opacity: 0;
   }
   20% {
@@ -401,7 +369,7 @@
     opacity: 0.85;
   }
   100% {
-    transform: translateX(350%);
+    transform: translate3d(340%, 0, 0);
     opacity: 0;
   }
 }
@@ -410,10 +378,10 @@
   animation: scan-sweep 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-/* Ultra-Fine Background Particle Drift */
+/* Lightweight Background Particle Drift (Transform + Opacity Only) */
 @keyframes particle-float {
   0% {
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 16px, 0);
     opacity: 0;
   }
   20% {
@@ -423,32 +391,19 @@
     opacity: 0.45;
   }
   100% {
-    transform: translate3d(12px, -90px, 0);
+    transform: translate3d(10px, -84px, 0);
     opacity: 0;
   }
 }
 
 .animate-particle-float {
-  animation: particle-float var(--particle-duration, 14s) linear var(--particle-delay, 0s) infinite;
+  animation: particle-float var(--particle-duration, 15s) linear var(--particle-delay, 0s) infinite;
 }
 
-/* Subtle Metallic Keyword Emphasis Sweep */
-@keyframes keyword-shimmer {
-  0% {
-    background-position: 160% 50%;
-  }
-  100% {
-    background-position: -60% 50%;
-  }
-}
-
-.text-keyword-shimmer {
-  background: linear-gradient(110deg, #F2F5FA 20%, #FDA4AF 48%, #FFFFFF 52%, #F2F5FA 80%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: keyword-shimmer 7s ease-in-out infinite;
+/* Off-Viewport Pause Gate for Zero Background CPU/GPU Drain */
+[data-paused="true"],
+[data-paused="true"] * {
+  animation-play-state: paused !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -459,13 +414,8 @@
   .animate-grid-drift,
   .animate-beam-drift,
   .animate-scan-sweep,
-  .animate-particle-float,
-  .text-keyword-shimmer {
+  .animate-particle-float {
     animation: none !important;
-  }
-  .text-keyword-shimmer {
-    color: #F2F5FA;
-    background: none;
   }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

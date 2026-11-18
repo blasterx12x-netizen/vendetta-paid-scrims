@@ -1,7 +1,8 @@
-import { motion } from 'motion/react';
+import { memo } from 'react';
+import { m } from 'motion/react';
 import { Compass, Headset } from 'lucide-react';
 import { BRAND_CONFIG, SOCIAL_LINKS } from '../data/scrimConfig';
-import { EASE_OUT_EXPO, TelemetryScanBar, VIEWPORT_CONFIG } from './MotionPrimitives';
+import { EASE_OUT_EXPO, VIEWPORT_CONFIG } from './MotionPrimitives';
 import { InstagramPortalButton, WhatsAppPortalButton } from './PremiumButtons';
 
 const FOOTER_LINKS = [
@@ -13,19 +14,22 @@ const FOOTER_LINKS = [
   { label: 'FAQ', href: '#faq' },
 ];
 
-export function Footer() {
+export const Footer = memo(function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="relative overflow-hidden bg-[#04060C] py-16 text-slate-300">
-      <TelemetryScanBar />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-rose-400/45 to-transparent"
+      />
 
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
+        <m.div
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={VIEWPORT_CONFIG}
-          transition={{ duration: 0.5, ease: EASE_OUT_EXPO }}
+          transition={{ duration: 0.45, ease: EASE_OUT_EXPO }}
           className="grid grid-cols-1 gap-10 border-b border-slate-300/12 pb-12 md:grid-cols-12"
         >
           {/* Official Brand Logo & Description */}
@@ -39,6 +43,8 @@ export function Footer() {
                 alt={BRAND_CONFIG.logoAlt}
                 width={60}
                 height={60}
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 className="h-15 w-15 shrink-0 rounded-sm border border-slate-200/25 bg-black object-contain transition-transform duration-200 group-hover:scale-[1.04]"
               />
@@ -104,7 +110,7 @@ export function Footer() {
               />
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Quiet Copyright Bar */}
         <div className="mt-8 flex flex-col items-start justify-between gap-3 text-xs text-slate-500 sm:flex-row sm:items-center">
@@ -116,4 +122,6 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+export default Footer;

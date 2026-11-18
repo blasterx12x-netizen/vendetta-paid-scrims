@@ -1,49 +1,64 @@
-import { useState } from 'react';
-import { MotionConfig } from 'motion/react';
+import { lazy, Suspense, useCallback, useState } from 'react';
+import { LazyMotion, MotionConfig, domAnimation } from 'motion/react';
 import { ENTRY_TIERS, LOBBY_SCHEDULE } from './data/scrimConfig';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { LobbySchedule } from './components/LobbySchedule';
 import { PrizeTiers } from './components/PrizeTiers';
-import { MapShowcase } from './components/MapShowcase';
-import { RegistrationFlow } from './components/RegistrationFlow';
-import { CompetitiveAndRules } from './components/CompetitiveAndRules';
-import { FaqSection } from './components/FaqSection';
-import { Footer } from './components/Footer';
 import { CrosshairTransitionInsignia } from './components/EsportsEmblems';
+
+const MapShowcase = lazy(() => import('./components/MapShowcase'));
+const RegistrationFlow = lazy(() => import('./components/RegistrationFlow'));
+const CompetitiveAndRules = lazy(() => import('./components/CompetitiveAndRules'));
+const FaqSection = lazy(() => import('./components/FaqSection'));
+const Footer = lazy(() => import('./components/Footer'));
 
 export default function App() {
   const [selectedLobbyId, setSelectedLobbyId] = useState<string>(LOBBY_SCHEDULE[0].id);
   const [selectedTierId, setSelectedTierId] = useState<string>(ENTRY_TIERS[0].id);
 
+  const handleSelectLobby = useCallback((id: string) => {
+    setSelectedLobbyId(id);
+  }, []);
+
+  const handleSelectTier = useCallback((id: string) => {
+    setSelectedTierId(id);
+  }, []);
+
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="min-h-screen bg-[#06080F] text-[#F2F5FA]">
-        <Navbar />
-        <main>
-          <Hero />
-          <CrosshairTransitionInsignia />
-          <LobbySchedule
-            selectedLobbyId={selectedLobbyId}
-            onSelectLobby={setSelectedLobbyId}
-          />
-          <PrizeTiers
-            selectedTierId={selectedTierId}
-            onSelectTier={setSelectedTierId}
-          />
-          <MapShowcase />
-          <CrosshairTransitionInsignia />
-          <RegistrationFlow
-            selectedLobbyId={selectedLobbyId}
-            selectedTierId={selectedTierId}
-            onSelectLobby={setSelectedLobbyId}
-            onSelectTier={setSelectedTierId}
-          />
-          <CompetitiveAndRules />
-          <FaqSection />
-        </main>
-        <Footer />
-      </div>
-    </MotionConfig>
+    <LazyMotion features={domAnimation} strict>
+      <MotionConfig reducedMotion="user">
+        <div className="min-h-screen bg-[#06080F] text-[#F2F5FA]">
+          <Navbar />
+          <main>
+            <Hero />
+            <CrosshairTransitionInsignia />
+            <LobbySchedule
+              selectedLobbyId={selectedLobbyId}
+              onSelectLobby={handleSelectLobby}
+            />
+            <PrizeTiers
+              selectedTierId={selectedTierId}
+              onSelectTier={handleSelectTier}
+            />
+            <Suspense fallback={<div className="min-h-[420px] bg-[#080B14]" />}>
+              <MapShowcase />
+              <CrosshairTransitionInsignia />
+              <RegistrationFlow
+                selectedLobbyId={selectedLobbyId}
+                selectedTierId={selectedTierId}
+                onSelectLobby={handleSelectLobby}
+                onSelectTier={handleSelectTier}
+              />
+              <CompetitiveAndRules />
+              <FaqSection />
+            </Suspense>
+          </main>
+          <Suspense fallback={null}>
+            <Footer />
+          </Suspense>
+        </div>
+      </MotionConfig>
+    </LazyMotion>
   );
 }
