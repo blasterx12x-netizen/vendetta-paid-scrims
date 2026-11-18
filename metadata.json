@@ -1,0 +1,6 @@
+{
+  "name": "VENDETTA PAID SCRIMS",
+  "description": "India's competitive Free Fire paid scrim arena featuring daily lobbies, B2B 6-map rotations, structured entry tiers, and organised WhatsApp registration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
