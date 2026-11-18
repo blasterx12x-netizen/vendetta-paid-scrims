@@ -7,7 +7,7 @@ function MapVisualCardMedia({ map, isSelected }: { map: MapConfig; isSelected: b
 
   return (
     <div
-      className="relative aspect-video w-full overflow-hidden border-b border-white/10 bg-[#090A0D]"
+      className="relative aspect-video w-full overflow-hidden border-b border-[#DFBA82]/18 bg-[#120C1B]"
       style={{
         backgroundImage: `radial-gradient(circle at 72% 28%, ${map.palette.glow}, transparent 68%)`,
       }}
@@ -28,38 +28,36 @@ function MapVisualCardMedia({ map, isSelected }: { map: MapConfig; isSelected: b
           }`}
         />
       ) : (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[#0D0E12] text-[#A9A59E]">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[#1A1226] text-[#C8BECF]">
           {map.isRandom ? (
-            <Shuffle className="h-7 w-7 text-[#DC2626]" aria-hidden="true" />
+            <Shuffle className="h-7 w-7 text-[#F4D8A8]" aria-hidden="true" />
           ) : (
-            <Compass className="h-7 w-7 text-[#DC2626]" aria-hidden="true" />
+            <Compass className="h-7 w-7 text-[#F4D8A8]" aria-hidden="true" />
           )}
-          <span className="font-display text-lg font-bold tracking-wider text-[#F4F1EC] uppercase">
+          <span className="font-display text-lg font-bold tracking-wider text-[#FAF4EB] uppercase">
             {map.name}
           </span>
         </div>
       )}
 
-      {/* Subtle Dark & Blood-Red Vignette + Contrast Scrim */}
+      {/* Measured Plum-Obsidian & Garnet Contrast Scrim */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B0C10] via-[#0B0C10]/35 to-black/25"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#160F22] via-[#160F22]/32 to-[#120A18]/25"
       />
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-x-0 top-0 h-0.5 transition-opacity duration-200 ${
-          isSelected
-            ? 'bg-[#DC2626] opacity-100'
-            : 'bg-[#DC2626] opacity-0 group-hover:opacity-80'
+        className={`pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#B52340] via-[#F4D8A8] to-[#B52340] transition-opacity duration-200 ${
+          isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-90'
         }`}
       />
 
       {/* Order & Sector Overlay */}
       <div className="absolute right-4 bottom-3 left-4 flex items-center justify-between text-xs font-medium tracking-[0.12em] uppercase">
-        <span className="font-mono-tabular font-semibold text-[#F87171]">
+        <span className="font-mono-tabular font-semibold text-[#F4D8A8]">
           {map.order}
         </span>
-        <span className="text-[#E5E0D8]">{map.sectorTag}</span>
+        <span className="text-[#FAF4EB]">{map.sectorTag}</span>
       </div>
     </div>
   );
@@ -72,27 +70,32 @@ export function MapShowcase() {
   return (
     <section
       id="maps"
-      className="border-b border-white/10 bg-[#0A0B0E] py-16 md:py-24"
+      className="relative border-b border-[#DFBA82]/20 bg-gradient-to-b from-[#171123] via-[#1D1328] to-[#150E20] py-16 md:py-24"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#DFBA82]/45 to-transparent"
+      />
+
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col gap-5 border-b border-white/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-5 border-b border-[#DFBA82]/16 pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold tracking-[0.16em] text-[#DC2626] uppercase">
+            <p className="text-xs font-semibold tracking-[0.18em] text-[#DFBA82] uppercase">
               Map Rotation & Match Format
             </p>
             <h2
-              className="font-display mt-2 text-[clamp(2rem,3.6vw,3.1rem)] font-bold leading-none tracking-tight text-[#F4F1EC] uppercase"
+              className="font-display mt-2 text-[clamp(2rem,3.6vw,3.1rem)] font-bold leading-none tracking-tight text-[#FAF4EB] uppercase"
               style={{ textWrap: 'balance' }}
             >
               B2B Six-Map Competitive Rotation
             </h2>
           </div>
 
-          <div className="flex items-center gap-3 text-sm text-[#B8B3AA]">
-            <Layers className="h-4 w-4 shrink-0 text-[#DC2626]" aria-hidden="true" />
+          <div className="flex items-center gap-3 text-sm text-[#D4CBDA]">
+            <Layers className="h-4 w-4 shrink-0 text-[#E8859A]" aria-hidden="true" />
             <span>
-              Every lobby runs <strong className="text-[#F4F1EC]">6 consecutive B2B matches</strong> across five fixed battlegrounds plus one dynamic Random Map decider.
+              Every lobby runs <strong className="text-[#F4D8A8]">6 consecutive B2B matches</strong> across five fixed battlegrounds plus one dynamic Random Map decider.
             </span>
           </div>
         </div>
@@ -108,10 +111,10 @@ export function MapShowcase() {
                 type="button"
                 onClick={() => setActiveMapId(map.id)}
                 aria-pressed={isSelected}
-                className={`group flex flex-col overflow-hidden rounded-sm border text-left transition-colors duration-150 ${
+                className={`group flex flex-col overflow-hidden rounded-sm border text-left transition-all duration-150 hover:-translate-y-0.5 ${
                   isSelected
-                    ? 'border-[#DC2626] bg-[#131116]'
-                    : 'border-white/10 bg-[#0E0F14] hover:border-[#DC2626]/60'
+                    ? 'card-garnet-velvet border-[#F4D8A8]/75'
+                    : 'card-plum-glass border-[#DFBA82]/18 hover:border-[#DFBA82]/48'
                 }`}
               >
                 <MapVisualCardMedia map={map} isSelected={isSelected} />
@@ -119,32 +122,32 @@ export function MapShowcase() {
                 <div className="flex flex-1 flex-col justify-between p-5 sm:p-6">
                   <div>
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-display text-2xl font-bold tracking-wide text-[#F4F1EC] uppercase">
+                      <h3 className="font-display text-2xl font-bold tracking-wide text-[#FAF4EB] uppercase">
                         {map.name}
                       </h3>
                       {map.isRandom ? (
                         <Shuffle
-                          className="h-4 w-4 shrink-0 text-[#DC2626]"
+                          className="h-4 w-4 shrink-0 text-[#E8859A]"
                           aria-hidden="true"
                         />
                       ) : (
                         <Compass
                           className={`h-4 w-4 shrink-0 transition-colors ${
                             isSelected
-                              ? 'text-[#DC2626]'
-                              : 'text-[#848079] group-hover:text-[#DC2626]'
+                              ? 'text-[#F4D8A8]'
+                              : 'text-[#9D92AA] group-hover:text-[#F4D8A8]'
                           }`}
                           aria-hidden="true"
                         />
                       )}
                     </div>
 
-                    <p className="mt-2.5 text-sm leading-relaxed text-[#A9A59E]">
+                    <p className="mt-2.5 text-sm leading-relaxed text-[#C8BECF]">
                       {map.terrainProfile}
                     </p>
                   </div>
 
-                  <p className="mt-4 border-t border-white/10 pt-3 text-xs font-medium text-[#D6D1C9]">
+                  <p className="mt-4 border-t border-[#DFBA82]/14 pt-3 text-xs font-medium text-[#E4DCE9]">
                     {map.tacticalNote}
                   </p>
                 </div>
@@ -154,22 +157,22 @@ export function MapShowcase() {
         </div>
 
         {/* Focused B2B Sequence Briefing Bar */}
-        <div className="mt-8 flex flex-col justify-between gap-4 rounded-sm border border-white/10 bg-[#070709] p-5 sm:flex-row sm:items-center sm:px-6">
+        <div className="card-garnet-velvet mt-8 flex flex-col justify-between gap-4 rounded-sm border border-[#DFBA82]/28 p-5 sm:flex-row sm:items-center sm:px-6">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-            <span className="font-mono-tabular font-semibold tracking-[0.12em] text-[#DC2626] uppercase">
+            <span className="font-mono-tabular font-semibold tracking-[0.12em] text-[#F4D8A8] uppercase">
               Selected Briefing · {activeMap.order}
             </span>
-            <span aria-hidden="true" className="text-white/25">
+            <span aria-hidden="true" className="text-[#DFBA82]/35">
               /
             </span>
-            <span className="font-semibold text-[#F4F1EC] uppercase">{activeMap.name}</span>
-            <span aria-hidden="true" className="text-white/25">
+            <span className="font-semibold text-[#FAF4EB] uppercase">{activeMap.name}</span>
+            <span aria-hidden="true" className="text-[#DFBA82]/35">
               ·
             </span>
-            <span className="text-[#A9A59E]">{activeMap.tacticalNote}</span>
+            <span className="text-[#D4CBDA]">{activeMap.tacticalNote}</span>
           </div>
 
-          <span className="font-mono-tabular shrink-0 text-xs font-semibold tracking-[0.1em] text-[#8D8880] uppercase">
+          <span className="font-mono-tabular shrink-0 text-xs font-semibold tracking-[0.1em] text-[#E8859A] uppercase">
             6-Match B2B Sequence
           </span>
         </div>

@@ -15,7 +15,7 @@ export default function App() {
   const [selectedTierId, setSelectedTierId] = useState<string>(ENTRY_TIERS[0].id);
 
   return (
-    <div className="min-h-screen bg-[#070709] text-[#F4F1EC]">
+    <div className="min-h-screen bg-[#0E0B16] text-[#FAF4EB]">
       <Navbar />
       <main>
         <Hero />

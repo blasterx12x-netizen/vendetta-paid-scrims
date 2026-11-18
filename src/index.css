@@ -8,20 +8,20 @@
 
 @layer base {
   html {
-    background-color: #070709;
-    color: #F4F1EC;
+    background-color: #0E0B16;
+    color: #FAF4EB;
     font-family: var(--font-sans);
     scroll-behavior: smooth;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #070709;
-    color: #F4F1EC;
+    background-color: #0E0B16;
+    color: #FAF4EB;
   }
 
   :focus-visible {
-    outline: 2px solid #DC2626;
+    outline: 2px solid #E8C68E;
     outline-offset: 2px;
   }
 }
@@ -39,20 +39,100 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Subtle architectural grid and crimson rim atmosphere */
+/* Luxury gold-tinted architectural grid */
 .bg-arena-grid {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(223, 186, 130, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(223, 186, 130, 0.055) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
-.bg-metallic-surface {
-  background: linear-gradient(180deg, rgba(25, 26, 32, 0.92) 0%, rgba(13, 14, 18, 0.96) 100%);
+/* Hero Royal Garnet-to-Midnight Plum Stage */
+.bg-vendetta-hero {
+  background:
+    radial-gradient(ellipse 68% 58% at 82% 24%, rgba(146, 20, 48, 0.42) 0%, rgba(92, 12, 34, 0.18) 46%, transparent 74%),
+    radial-gradient(ellipse 52% 52% at 15% 18%, rgba(223, 186, 130, 0.11) 0%, transparent 65%),
+    linear-gradient(145deg, #270A16 0%, #160D1E 48%, #0E0B16 100%);
 }
 
-.bg-crimson-sheen {
-  background: linear-gradient(135deg, rgba(185, 28, 28, 0.16) 0%, rgba(16, 17, 21, 0.95) 55%, rgba(12, 13, 16, 0.98) 100%);
+/* Brushed Antique Gold Metallic Text Gradient (pulled from VENDETTA emblem) */
+.text-gold-metallic {
+  background: linear-gradient(135deg, #FFF7E8 0%, #E8C790 42%, #C49354 78%, #F3DEC0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Velvet Garnet-Rose Metallic Accent Text */
+.text-garnet-metallic {
+  background: linear-gradient(135deg, #F7A3B2 0%, #DB4D69 52%, #B52340 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Smoked Midnight Plum Glass Card */
+.card-plum-glass {
+  background: linear-gradient(170deg, rgba(35, 25, 48, 0.78) 0%, rgba(20, 15, 31, 0.92) 100%);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(232, 199, 144, 0.16),
+    0 12px 32px rgba(6, 4, 12, 0.42);
+}
+
+/* Imperial Garnet Velvet Selected / Spotlight Surface */
+.card-garnet-velvet {
+  background: linear-gradient(145deg, rgba(132, 18, 44, 0.56) 0%, rgba(56, 14, 30, 0.88) 46%, rgba(23, 13, 27, 0.96) 100%);
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(243, 214, 168, 0.28),
+    0 18px 46px rgba(105, 12, 34, 0.34);
+}
+
+/* Primary Brushed Antique Gold CTA Button (Logo Lettering Signature) */
+.btn-gold-luxury {
+  background: linear-gradient(135deg, #F4D8A8 0%, #DFBA80 48%, #B88848 100%);
+  border: 1px solid rgba(255, 245, 224, 0.45);
+  color: #18090F;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 10px 26px rgba(207, 159, 92, 0.24);
+}
+
+.btn-gold-luxury:hover {
+  background: linear-gradient(135deg, #FAE4BC 0%, #E9C791 50%, #C89755 100%);
+  border-color: rgba(255, 248, 232, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 12px 32px rgba(223, 186, 128, 0.34);
+}
+
+/* Secondary Imperial Garnet Glass Button */
+.btn-garnet-luxury {
+  background: linear-gradient(135deg, rgba(145, 20, 48, 0.82) 0%, rgba(88, 12, 32, 0.92) 100%);
+  border: 1px solid rgba(232, 199, 144, 0.35);
+  color: #FAF4EB;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 8px 22px rgba(110, 14, 38, 0.3);
+}
+
+.btn-garnet-luxury:hover {
+  background: linear-gradient(135deg, rgba(168, 26, 57, 0.92) 0%, rgba(108, 16, 40, 0.96) 100%);
+  border-color: rgba(232, 199, 144, 0.62);
+}
+
+/* Plum-Gold Architectural Outline Button */
+.btn-plum-outline {
+  background: linear-gradient(180deg, rgba(39, 28, 54, 0.85) 0%, rgba(23, 17, 34, 0.95) 100%);
+  border: 1px solid rgba(223, 186, 130, 0.32);
+  color: #FAF4EB;
+  box-shadow: inset 0 1px 0 rgba(232, 199, 144, 0.12);
+}
+
+.btn-plum-outline:hover {
+  background: linear-gradient(180deg, rgba(52, 37, 71, 0.92) 0%, rgba(30, 22, 44, 0.98) 100%);
+  border-color: rgba(232, 199, 144, 0.62);
 }
 
 @media (prefers-reduced-motion: reduce) {

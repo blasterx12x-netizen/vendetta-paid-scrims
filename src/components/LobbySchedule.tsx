@@ -48,7 +48,6 @@ function computeNextIstLobby(nowMs: number): NextLobbyCountdown {
     };
   }
 
-  // Convert current UTC instant to IST wall-clock components (+05:30 = 330 minutes)
   const istOffsetMs = 330 * 60 * 1000;
   const istNow = new Date(nowMs + istOffsetMs);
   const year = istNow.getUTCFullYear();
@@ -68,7 +67,6 @@ function computeNextIstLobby(nowMs: number): NextLobbyCountdown {
     }
   }
 
-  // All today's IST lobbies have passed -> target tomorrow's first lobby (12:00 PM IST)
   let dayLabel = 'Today (IST)';
   if (targetUtcMs === 0) {
     chosenLobby = LOBBY_SCHEDULE[0];
@@ -116,53 +114,58 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
   return (
     <section
       id="schedule"
-      className="border-b border-white/10 bg-[#0A0B0E] py-16 md:py-24"
+      className="relative border-b border-[#DFBA82]/20 bg-gradient-to-b from-[#171123] via-[#130E1D] to-[#110C1A] py-16 md:py-24"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#DFBA82]/45 to-transparent"
+      />
+
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col gap-6 border-b border-white/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-6 border-b border-[#DFBA82]/16 pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold tracking-[0.16em] text-[#DC2626] uppercase">
+            <p className="text-xs font-semibold tracking-[0.18em] text-[#DFBA82] uppercase">
               Official Lobby Schedule
             </p>
             <h2
-              className="font-display mt-2 text-[clamp(2rem,3.6vw,3.1rem)] font-bold leading-none tracking-tight text-[#F4F1EC] uppercase"
+              className="font-display mt-2 text-[clamp(2rem,3.6vw,3.1rem)] font-bold leading-none tracking-tight text-[#FAF4EB] uppercase"
               style={{ textWrap: 'balance' }}
             >
               Four Daily IST Scrim Windows
             </h2>
-            <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-[#A9A59E] sm:text-base">
+            <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-[#C8BECF] sm:text-base">
               Consistent daily custom room timings running B2B six-map sessions. Select a
               lobby below to pre-fill your WhatsApp registration request.
             </p>
           </div>
 
-          {/* Schedule-Driven IST Countdown (only rendered when schedule is configured) */}
+          {/* Schedule-Driven IST Countdown */}
           {COUNTDOWN_CONFIG.isScheduleConfigured && countdown && (
-            <div className="flex flex-col gap-3 rounded-sm border border-white/12 bg-[#111217] px-5 py-4 sm:flex-row sm:items-center sm:gap-6">
+            <div className="card-garnet-velvet flex flex-col gap-3 rounded-sm border border-[#DFBA82]/35 px-5 py-4 sm:flex-row sm:items-center sm:gap-6">
               <div>
-                <div className="flex items-center gap-2 text-xs font-medium tracking-[0.1em] text-[#A9A59E] uppercase">
-                  <Clock className="h-3.5 w-3.5 text-[#DC2626]" aria-hidden="true" />
+                <div className="flex items-center gap-2 text-xs font-medium tracking-[0.1em] text-[#E4DCE9] uppercase">
+                  <Clock className="h-3.5 w-3.5 text-[#F4D8A8]" aria-hidden="true" />
                   <span>Next Scheduled Lobby · {countdown.dateLabel}</span>
                 </div>
-                <p className="font-display mt-1 text-lg font-bold tracking-wide text-[#F4F1EC] uppercase">
+                <p className="font-display mt-1 text-lg font-bold tracking-wide text-[#F4D8A8] uppercase">
                   {countdown.targetLabel} — {countdown.sessionTitle}
                 </p>
               </div>
 
               <div
                 aria-label={`Time until ${countdown.targetLabel}`}
-                className="font-mono-tabular flex items-center gap-1.5 text-2xl font-bold text-[#F4F1EC]"
+                className="font-mono-tabular flex items-center gap-1.5 text-2xl font-bold text-[#FAF4EB]"
               >
-                <span className="rounded-sm border border-white/10 bg-[#070709] px-2.5 py-1.5">
+                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
                   {countdown.hours}
                 </span>
-                <span className="text-[#DC2626]">:</span>
-                <span className="rounded-sm border border-white/10 bg-[#070709] px-2.5 py-1.5">
+                <span className="text-[#E8859A]">:</span>
+                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
                   {countdown.minutes}
                 </span>
-                <span className="text-[#DC2626]">:</span>
-                <span className="rounded-sm border border-white/10 bg-[#070709] px-2.5 py-1.5">
+                <span className="text-[#E8859A]">:</span>
+                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
                   {countdown.seconds}
                 </span>
               </div>
@@ -179,52 +182,52 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
             return (
               <article
                 key={lobby.id}
-                className={`group flex flex-col justify-between rounded-sm border p-6 transition-colors duration-150 ${
+                className={`group flex flex-col justify-between rounded-sm border p-6 transition-all duration-150 hover:-translate-y-0.5 ${
                   isSelected
-                    ? 'border-[#DC2626] bg-crimson-sheen'
-                    : 'border-white/10 bg-metallic-surface hover:border-white/25'
+                    ? 'card-garnet-velvet border-[#DFBA82]/65'
+                    : 'card-plum-glass border-[#DFBA82]/18 hover:border-[#DFBA82]/45'
                 }`}
               >
                 <div>
-                  {/* Quiet Typographic Metadata Line (no pills) */}
-                  <div className="flex items-center justify-between border-b border-white/10 pb-3 text-xs font-medium tracking-[0.12em] text-[#8D8880] uppercase">
-                    <span>Lobby {slotNumber}</span>
-                    <span>{lobby.sessionTitle}</span>
+                  {/* Quiet Typographic Metadata Line */}
+                  <div className="flex items-center justify-between border-b border-[#DFBA82]/14 pb-3 text-xs font-medium tracking-[0.12em] uppercase">
+                    <span className="text-[#DFBA82]">Lobby {slotNumber}</span>
+                    <span className="text-[#E8859A]">{lobby.sessionTitle}</span>
                   </div>
 
                   {/* Digital Clock Timing */}
                   <div className="mt-5 flex items-baseline gap-2">
-                    <span className="font-mono-tabular text-3xl font-bold tracking-tight text-[#F4F1EC] sm:text-4xl">
+                    <span className="font-mono-tabular text-gold-metallic text-3xl font-bold tracking-tight sm:text-4xl">
                       {lobby.timeLabel}
                     </span>
-                    <span className="text-xs font-semibold tracking-widest text-[#DC2626] uppercase">
+                    <span className="text-xs font-semibold tracking-widest text-[#E8859A] uppercase">
                       IST
                     </span>
                   </div>
 
                   {/* Details */}
-                  <dl className="mt-6 space-y-3 border-t border-white/10 pt-4 text-xs">
+                  <dl className="mt-6 space-y-3 border-t border-[#DFBA82]/14 pt-4 text-xs">
                     <div>
-                      <dt className="font-medium tracking-wider text-[#848079] uppercase">
+                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
                         Registration Availability
                       </dt>
-                      <dd className="mt-0.5 text-sm font-medium text-[#E5E0D8]">
+                      <dd className="mt-0.5 text-sm font-medium text-[#FAF4EB]">
                         {lobby.availabilityNote}
                       </dd>
                     </div>
                     <div>
-                      <dt className="font-medium tracking-wider text-[#848079] uppercase">
+                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
                         Entry Fee Options
                       </dt>
-                      <dd className="font-mono-tabular mt-0.5 text-sm font-semibold text-[#F4F1EC]">
+                      <dd className="font-mono-tabular mt-0.5 text-sm font-semibold text-[#F4D8A8]">
                         {entrySummary}
                       </dd>
                     </div>
                     <div>
-                      <dt className="font-medium tracking-wider text-[#848079] uppercase">
+                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
                         WhatsApp Registration
                       </dt>
-                      <dd className="mt-0.5 leading-relaxed text-[#A9A59E]">
+                      <dd className="mt-0.5 leading-relaxed text-[#C8BECF]">
                         {lobby.registrationInstruction}
                       </dd>
                     </div>
@@ -239,10 +242,10 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                       const el = document.getElementById('register');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-sm border px-4 py-2.5 text-xs font-semibold tracking-[0.08em] uppercase transition-colors duration-150 ${
+                    className={`flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-sm px-4 py-2.5 text-xs font-bold tracking-[0.08em] uppercase transition-all duration-150 ${
                       isSelected
-                        ? 'border-[#EF4444]/60 bg-[#B91C1C] text-white hover:bg-[#DC2626]'
-                        : 'border-white/15 bg-[#16181F] text-[#F4F1EC] hover:border-[#DC2626]/60 hover:bg-[#1E2029]'
+                        ? 'btn-gold-luxury'
+                        : 'btn-plum-outline'
                     }`}
                   >
                     {isSelected ? (
@@ -253,7 +256,7 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                     ) : (
                       <>
                         <span>Select {lobby.timeLabel} Lobby</span>
-                        <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                        <ArrowRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
                       </>
                     )}
                   </button>

@@ -3,23 +3,23 @@ import { motion } from 'motion/react';
 import { BRAND_CONFIG, HERO_STATS, SOCIAL_LINKS } from '../data/scrimConfig';
 
 export function Hero() {
+  const headlineParts = BRAND_CONFIG.heroHeadline.split('. ');
+  const primaryLine = headlineParts[0] ? `${headlineParts[0]}.` : BRAND_CONFIG.heroHeadline;
+  const secondaryLine = headlineParts[1] ?? '';
+
   return (
     <section
       id="top"
-      className="relative overflow-hidden border-b border-white/10 bg-[#070709]"
+      className="bg-vendetta-hero relative overflow-hidden border-b border-[#DFBA82]/22"
     >
-      {/* Atmospheric blood-red & charcoal lighting backdrop */}
+      {/* Subtle gold architectural grid */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-arena-grid opacity-70"
+        className="pointer-events-none absolute inset-0 bg-arena-grid opacity-80"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-32 right-0 h-[540px] w-[540px] rounded-full bg-[radial-gradient(circle,rgba(185,28,28,0.22)_0%,rgba(127,29,29,0.08)_45%,transparent_72%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-40 -left-24 h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle,rgba(153,27,27,0.16)_0%,transparent_70%)]"
+        className="pointer-events-none absolute -top-24 right-[-6%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(223,186,130,0.14)_0%,rgba(148,22,52,0.22)_45%,transparent_72%)]"
       />
 
       <div className="relative mx-auto max-w-[1240px] px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:px-8 lg:pt-20 lg:pb-20">
@@ -33,24 +33,29 @@ export function Hero() {
             className="flex flex-col justify-center lg:col-span-7"
           >
             {/* Unboxed Metadata Kicker (zero-pill rule) */}
-            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-medium tracking-[0.14em] text-[#A9A59E] uppercase">
-              <span className="text-[#DC2626]">{BRAND_CONFIG.name}</span>
-              <span aria-hidden="true">·</span>
+            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold tracking-[0.16em] text-[#C8BECF] uppercase">
+              <span className="text-[#F4D8A8]">{BRAND_CONFIG.name}</span>
+              <span aria-hidden="true" className="text-[#E8859A]">
+                ·
+              </span>
               <span>{BRAND_CONFIG.regionLabel}</span>
             </div>
 
             <h1
-              className="font-display text-[clamp(2.75rem,5.4vw,4.85rem)] font-extrabold leading-[0.95] tracking-[-0.01em] text-[#F4F1EC] uppercase"
+              className="font-display text-[clamp(2.85rem,5.5vw,4.95rem)] font-extrabold leading-[0.94] tracking-[-0.01em] uppercase"
               style={{ textWrap: 'balance' }}
             >
-              {BRAND_CONFIG.heroHeadline}
+              <span className="block text-[#FAF4EB]">{primaryLine}</span>
+              {secondaryLine && (
+                <span className="text-gold-metallic mt-1 block">{secondaryLine}</span>
+              )}
             </h1>
 
-            <p className="mt-4 font-display text-lg font-semibold tracking-[0.08em] text-[#DC2626] uppercase sm:text-xl">
+            <p className="font-display text-garnet-metallic mt-4 text-lg font-bold tracking-[0.1em] uppercase sm:text-xl">
               {BRAND_CONFIG.heroSubheadline}
             </p>
 
-            <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[#B8B3AA]">
+            <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[#D4CBDA]">
               {BRAND_CONFIG.communityIntro}
             </p>
 
@@ -60,7 +65,7 @@ export function Hero() {
                 href={SOCIAL_LINKS.whatsappChannel.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-sm border border-[#EF4444]/60 bg-[#B91C1C] px-6 py-3 text-sm font-semibold tracking-[0.06em] text-white uppercase transition-colors duration-150 hover:bg-[#DC2626]"
+                className="btn-gold-luxury inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-sm px-6 py-3 text-sm font-bold tracking-[0.07em] uppercase transition-all duration-150"
               >
                 <MessageCircle className="h-4 w-4" aria-hidden="true" />
                 <span>{SOCIAL_LINKS.whatsappChannel.ctaHero}</span>
@@ -69,40 +74,40 @@ export function Hero() {
 
               <a
                 href="#schedule"
-                className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-sm border border-white/20 bg-[#121318] px-6 py-3 text-sm font-semibold tracking-[0.06em] text-[#F4F1EC] uppercase transition-colors duration-150 hover:border-white/40 hover:bg-[#191B22]"
+                className="btn-garnet-luxury inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-sm px-6 py-3 text-sm font-semibold tracking-[0.07em] uppercase transition-all duration-150"
               >
                 <span>View Lobby Schedule</span>
-                <ArrowDownRight className="h-4 w-4 text-[#DC2626]" aria-hidden="true" />
+                <ArrowDownRight className="h-4 w-4 text-[#F4D8A8]" aria-hidden="true" />
               </a>
             </div>
 
             {/* Official Social Links Row (Strictly WhatsApp Channel & Instagram) */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-xs text-[#A9A59E]">
-              <span className="font-medium tracking-[0.1em] text-[#848079] uppercase">
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#DFBA82]/18 pt-6 text-xs text-[#C8BECF]">
+              <span className="font-semibold tracking-[0.12em] text-[#DFBA82] uppercase">
                 Official Channels
               </span>
               <a
                 href={SOCIAL_LINKS.instagram.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#E5E0D8] transition-colors hover:text-[#DC2626]"
+                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#FAF4EB] transition-colors hover:text-[#F4D8A8]"
               >
-                <Instagram className="h-4 w-4 text-[#DC2626]" aria-hidden="true" />
+                <Instagram className="h-4 w-4 text-[#E8859A]" aria-hidden="true" />
                 <span>Instagram ({SOCIAL_LINKS.instagram.handle})</span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#848079]" aria-hidden="true" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
               </a>
-              <span aria-hidden="true" className="text-white/20">
+              <span aria-hidden="true" className="text-[#DFBA82]/30">
                 /
               </span>
               <a
                 href={SOCIAL_LINKS.whatsappChannel.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#E5E0D8] transition-colors hover:text-[#DC2626]"
+                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#FAF4EB] transition-colors hover:text-[#F4D8A8]"
               >
-                <MessageCircle className="h-4 w-4 text-[#DC2626]" aria-hidden="true" />
+                <MessageCircle className="h-4 w-4 text-[#DFBA82]" aria-hidden="true" />
                 <span>Official WhatsApp Channel</span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#848079]" aria-hidden="true" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
               </a>
             </div>
           </motion.div>
@@ -114,45 +119,53 @@ export function Hero() {
             transition={{ duration: 0.4, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center justify-center lg:col-span-5"
           >
-            <div className="relative w-full max-w-[440px] rounded-sm border border-white/12 bg-[#0B0C10] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.75)] sm:p-5">
-              {/* Subtle metallic corner brackets */}
+            <div className="relative w-full max-w-[440px]">
+              {/* Warm gold & royal wine ambient halo framing the untouched black square logo */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute top-0 left-0 h-5 w-5 border-t-2 border-l-2 border-[#DC2626]"
+                className="pointer-events-none absolute -inset-5 rounded-sm bg-[radial-gradient(circle,rgba(223,186,130,0.28)_0%,rgba(155,20,50,0.26)_48%,transparent_72%)] blur-xl"
               />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute right-0 bottom-0 h-5 w-5 border-r-2 border-b-2 border-[#DC2626]"
-              />
-
-              <div className="overflow-hidden rounded-sm border border-white/10 bg-black">
-                <img
-                  src={BRAND_CONFIG.logoPath}
-                  alt={BRAND_CONFIG.logoAlt}
-                  referrerPolicy="no-referrer"
-                  className="aspect-square w-full object-contain"
+              <div className="card-plum-glass relative rounded-sm border border-[#DFBA82]/38 p-4 shadow-[0_28px_80px_rgba(8,4,14,0.85)] sm:p-5">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute top-0 left-0 h-6 w-6 border-t-2 border-l-2 border-[#F4D8A8]"
                 />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute right-0 bottom-0 h-6 w-6 border-r-2 border-b-2 border-[#E8859A]"
+                />
+
+                <div className="overflow-hidden rounded-sm border border-[#DFBA82]/24 bg-black">
+                  <img
+                    src={BRAND_CONFIG.logoPath}
+                    alt={BRAND_CONFIG.logoAlt}
+                    referrerPolicy="no-referrer"
+                    className="aspect-square w-full object-contain"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
 
         {/* Full-Width 4-Column Editable Arena Stats Strip */}
-        <div className="mt-12 grid grid-cols-2 border border-white/10 bg-[#0D0E12] md:mt-16 md:grid-cols-4">
+        <div className="card-plum-glass mt-12 grid grid-cols-2 rounded-sm border border-[#DFBA82]/24 md:mt-16 md:grid-cols-4">
           {HERO_STATS.map((stat, idx) => (
             <div
               key={stat.id}
               className={`p-5 sm:p-6 ${
-                idx < HERO_STATS.length - 1 ? 'border-b border-white/10 md:border-r md:border-b-0' : ''
-              } ${idx % 2 === 0 ? 'border-r border-white/10 md:border-r' : ''}`}
+                idx < HERO_STATS.length - 1
+                  ? 'border-b border-[#DFBA82]/14 md:border-r md:border-b-0'
+                  : ''
+              } ${idx % 2 === 0 ? 'border-r border-[#DFBA82]/14 md:border-r' : ''}`}
             >
-              <p className="text-xs font-medium tracking-[0.12em] text-[#8D8880] uppercase">
+              <p className="text-xs font-semibold tracking-[0.14em] text-[#E8859A] uppercase">
                 {stat.label}
               </p>
-              <p className="font-display mt-2 text-3xl font-bold tracking-tight text-[#F4F1EC] tabular-nums sm:text-4xl">
+              <p className="font-display text-gold-metallic mt-2 text-3xl font-bold tracking-tight tabular-nums sm:text-4xl">
                 {stat.value}
               </p>
-              <p className="mt-1.5 text-xs leading-snug text-[#A9A59E]">{stat.detail}</p>
+              <p className="mt-1.5 text-xs leading-snug text-[#D4CBDA]">{stat.detail}</p>
             </div>
           ))}
         </div>
