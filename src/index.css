@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
   html {
-    background-color: #0E0B16;
-    color: #FAF4EB;
+    background-color: #06080F;
+    color: #F2F5FA;
     font-family: var(--font-sans);
     scroll-behavior: smooth;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #0E0B16;
-    color: #FAF4EB;
+    background-color: #06080F;
+    color: #F2F5FA;
   }
 
   :focus-visible {
-    outline: 2px solid #E8C68E;
+    outline: 2px solid #F43F5E;
     outline-offset: 2px;
   }
 }
@@ -39,105 +39,433 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Luxury gold-tinted architectural grid */
-.bg-arena-grid {
+/* Precision Architectural Esports Grid */
+.bg-esports-grid {
   background-image:
-    linear-gradient(to right, rgba(223, 186, 130, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(223, 186, 130, 0.055) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(to right, rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
 }
 
-/* Hero Royal Garnet-to-Midnight Plum Stage */
-.bg-vendetta-hero {
+/* Diagonal Carbon Weave Micro-Texture */
+.bg-carbon-diagonal {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(226, 232, 240, 0.018) 0px,
+    rgba(226, 232, 240, 0.018) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+
+/* Hero Cinematic Abyssal Steel + Ruby-Crimson Stage */
+.bg-vendetta-stage {
   background:
-    radial-gradient(ellipse 68% 58% at 82% 24%, rgba(146, 20, 48, 0.42) 0%, rgba(92, 12, 34, 0.18) 46%, transparent 74%),
-    radial-gradient(ellipse 52% 52% at 15% 18%, rgba(223, 186, 130, 0.11) 0%, transparent 65%),
-    linear-gradient(145deg, #270A16 0%, #160D1E 48%, #0E0B16 100%);
+    radial-gradient(ellipse 64% 56% at 78% 28%, rgba(225, 29, 72, 0.24) 0%, rgba(136, 19, 55, 0.1) 44%, transparent 72%),
+    radial-gradient(ellipse 52% 48% at 14% 20%, rgba(148, 163, 184, 0.11) 0%, transparent 65%),
+    linear-gradient(155deg, #0D1221 0%, #070A13 52%, #05070D 100%);
 }
 
-/* Brushed Antique Gold Metallic Text Gradient (pulled from VENDETTA emblem) */
-.text-gold-metallic {
-  background: linear-gradient(135deg, #FFF7E8 0%, #E8C790 42%, #C49354 78%, #F3DEC0 100%);
+/* Liquid Brushed Platinum Chrome Text Gradient */
+.text-platinum-chrome {
+  background: linear-gradient(180deg, #FFFFFF 0%, #DCE4F0 48%, #8F9FB8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Velvet Garnet-Rose Metallic Accent Text */
-.text-garnet-metallic {
-  background: linear-gradient(135deg, #F7A3B2 0%, #DB4D69 52%, #B52340 100%);
+/* Luminous Ruby-Garnet Text Gradient */
+.text-ruby-luminous {
+  background: linear-gradient(135deg, #FDA4AF 0%, #F43F5E 48%, #BE123C 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Smoked Midnight Plum Glass Card */
-.card-plum-glass {
-  background: linear-gradient(170deg, rgba(35, 25, 48, 0.78) 0%, rgba(20, 15, 31, 0.92) 100%);
+/* Chamfered International Esports Card Clips */
+.clip-chamfer {
+  clip-path: polygon(
+    14px 0,
+    100% 0,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    0 100%,
+    0 14px
+  );
+}
+
+.clip-chamfer-lg {
+  clip-path: polygon(
+    22px 0,
+    100% 0,
+    100% calc(100% - 22px),
+    calc(100% - 22px) 100%,
+    0 100%,
+    0 22px
+  );
+}
+
+/* Cold Titanium Glass Surface */
+.surface-titanium {
+  background: linear-gradient(165deg, rgba(20, 27, 45, 0.86) 0%, rgba(10, 14, 24, 0.94) 100%);
   backdrop-filter: blur(14px);
   box-shadow:
-    inset 0 1px 0 rgba(232, 199, 144, 0.16),
-    0 12px 32px rgba(6, 4, 12, 0.42);
+    inset 0 1px 0 rgba(226, 232, 240, 0.12),
+    0 16px 38px rgba(2, 4, 10, 0.55);
 }
 
-/* Imperial Garnet Velvet Selected / Spotlight Surface */
-.card-garnet-velvet {
-  background: linear-gradient(145deg, rgba(132, 18, 44, 0.56) 0%, rgba(56, 14, 30, 0.88) 46%, rgba(23, 13, 27, 0.96) 100%);
+/* Luminous Ruby-Steel Command Surface */
+.surface-ruby-command {
+  background: linear-gradient(145deg, rgba(159, 18, 57, 0.34) 0%, rgba(28, 16, 30, 0.92) 48%, rgba(9, 12, 21, 0.98) 100%);
   backdrop-filter: blur(14px);
   box-shadow:
-    inset 0 1px 0 rgba(243, 214, 168, 0.28),
-    0 18px 46px rgba(105, 12, 34, 0.34);
+    inset 0 1px 0 rgba(253, 164, 175, 0.22),
+    0 20px 50px rgba(136, 19, 55, 0.25);
 }
 
-/* Primary Brushed Antique Gold CTA Button (Logo Lettering Signature) */
-.btn-gold-luxury {
-  background: linear-gradient(135deg, #F4D8A8 0%, #DFBA80 48%, #B88848 100%);
-  border: 1px solid rgba(255, 245, 224, 0.45);
-  color: #18090F;
+/* Primary Brushed Platinum Chrome Action Button */
+.btn-platinum-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 50%, #CBD5E1 100%);
+  color: #070911;
+  border: 1px solid rgba(255, 255, 255, 0.7);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.48),
-    0 10px 26px rgba(207, 159, 92, 0.24);
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 28px rgba(226, 232, 240, 0.16);
 }
 
-.btn-gold-luxury:hover {
-  background: linear-gradient(135deg, #FAE4BC 0%, #E9C791 50%, #C89755 100%);
-  border-color: rgba(255, 248, 232, 0.7);
+.btn-platinum-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.65) 50%, transparent 75%);
+  transform: translateX(-115%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-platinum-primary:hover::after {
+  transform: translateX(115%);
+}
+
+.btn-platinum-primary:hover {
+  background: linear-gradient(135deg, #FFFFFF 0%, #F1F5F9 55%, #DCE4F0 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 12px 32px rgba(223, 186, 128, 0.34);
+    inset 0 1px 0 #FFFFFF,
+    0 14px 34px rgba(226, 232, 240, 0.26);
 }
 
-/* Secondary Imperial Garnet Glass Button */
-.btn-garnet-luxury {
-  background: linear-gradient(135deg, rgba(145, 20, 48, 0.82) 0%, rgba(88, 12, 32, 0.92) 100%);
-  border: 1px solid rgba(232, 199, 144, 0.35);
-  color: #FAF4EB;
+/* Primary Luminous Ruby-Crimson Action Button */
+.btn-ruby-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F43F5E 0%, #E11D48 52%, #9F1239 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(253, 164, 175, 0.45);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    0 8px 22px rgba(110, 14, 38, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 10px 28px rgba(225, 29, 72, 0.28);
 }
 
-.btn-garnet-luxury:hover {
-  background: linear-gradient(135deg, rgba(168, 26, 57, 0.92) 0%, rgba(108, 16, 40, 0.96) 100%);
-  border-color: rgba(232, 199, 144, 0.62);
+.btn-ruby-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, 0.26) 50%, transparent 75%);
+  transform: translateX(-115%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
 }
 
-/* Plum-Gold Architectural Outline Button */
-.btn-plum-outline {
-  background: linear-gradient(180deg, rgba(39, 28, 54, 0.85) 0%, rgba(23, 17, 34, 0.95) 100%);
-  border: 1px solid rgba(223, 186, 130, 0.32);
-  color: #FAF4EB;
-  box-shadow: inset 0 1px 0 rgba(232, 199, 144, 0.12);
+.btn-ruby-primary:hover::after {
+  transform: translateX(115%);
 }
 
-.btn-plum-outline:hover {
-  background: linear-gradient(180deg, rgba(52, 37, 71, 0.92) 0%, rgba(30, 22, 44, 0.98) 100%);
-  border-color: rgba(232, 199, 144, 0.62);
+.btn-ruby-primary:hover {
+  background: linear-gradient(135deg, #FB7185 0%, #E11D48 52%, #BE123C 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 14px 36px rgba(244, 63, 94, 0.38);
+}
+
+/* Secondary Steel-Chrome Outline Button */
+.btn-titanium-outline {
+  background: linear-gradient(180deg, rgba(22, 30, 50, 0.86) 0%, rgba(12, 16, 29, 0.96) 100%);
+  border: 1px solid rgba(203, 213, 225, 0.24);
+  color: #F2F5FA;
+  box-shadow: inset 0 1px 0 rgba(226, 232, 240, 0.08);
+}
+
+.btn-titanium-outline:hover {
+  background: linear-gradient(180deg, rgba(31, 42, 68, 0.94) 0%, rgba(17, 23, 40, 0.98) 100%);
+  border-color: rgba(244, 63, 94, 0.55);
+}
+
+/* Coordinated Official WhatsApp Portal Button (Deep Obsidian-Emerald + Jade Highlights) */
+.btn-whatsapp-portal {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(
+    125deg,
+    #072016 0%,
+    #0F5136 32%,
+    #188657 52%,
+    #0E4B32 72%,
+    #072016 100%
+  );
+  background-size: 210% 210%;
+  background-position: 0% 50%;
+  color: #ECFDF5;
+  border: 1px solid rgba(52, 211, 153, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(167, 243, 208, 0.34),
+    inset 0 -1px 0 rgba(6, 78, 59, 0.5),
+    0 12px 30px rgba(16, 185, 129, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.45);
+  transition:
+    background-position 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+
+.btn-whatsapp-portal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 22%, rgba(167, 243, 208, 0.24) 50%, transparent 78%);
+  transform: translateX(-120%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .btn-whatsapp-portal:hover {
+    background-position: 100% 50%;
+    border-color: rgba(110, 231, 183, 0.78);
+    box-shadow:
+      inset 0 1px 0 rgba(209, 250, 229, 0.48),
+      0 16px 38px rgba(37, 211, 102, 0.3),
+      0 4px 12px rgba(0, 0, 0, 0.55);
+  }
+
+  .btn-whatsapp-portal:hover::after {
+    transform: translateX(120%);
+  }
+}
+
+.btn-whatsapp-portal:active {
+  border-color: rgba(110, 231, 183, 0.9);
+  box-shadow:
+    inset 0 2px 6px rgba(4, 24, 15, 0.65),
+    0 6px 18px rgba(37, 211, 102, 0.26);
+}
+
+/* Coordinated Official Instagram Portal Button (Obsidian-Plum + Magenta/Sunset-Rose Gradient) */
+.btn-instagram-portal {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(
+    125deg,
+    #1B0C24 0%,
+    #5E1E59 32%,
+    #B6296C 52%,
+    #7B2259 74%,
+    #190B21 100%
+  );
+  background-size: 210% 210%;
+  background-position: 0% 50%;
+  color: #FDF2F8;
+  border: 1px solid rgba(244, 114, 182, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(251, 207, 232, 0.3),
+    inset 0 -1px 0 rgba(80, 7, 36, 0.5),
+    0 12px 30px rgba(225, 48, 108, 0.22),
+    0 2px 6px rgba(0, 0, 0, 0.45);
+  transition:
+    background-position 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+
+.btn-instagram-portal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 22%, rgba(253, 186, 116, 0.24) 50%, transparent 78%);
+  transform: translateX(-120%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .btn-instagram-portal:hover {
+    background-position: 100% 50%;
+    border-color: rgba(249, 168, 212, 0.78);
+    box-shadow:
+      inset 0 1px 0 rgba(252, 231, 243, 0.45),
+      0 16px 38px rgba(225, 48, 108, 0.32),
+      0 4px 12px rgba(0, 0, 0, 0.55);
+  }
+
+  .btn-instagram-portal:hover::after {
+    transform: translateX(120%);
+  }
+}
+
+.btn-instagram-portal:active {
+  border-color: rgba(249, 168, 212, 0.9);
+  box-shadow:
+    inset 0 2px 6px rgba(34, 6, 28, 0.65),
+    0 6px 18px rgba(225, 48, 108, 0.28);
+}
+
+/* Pointer-Originating Specular Tap/Click Ripple */
+@keyframes tap-ripple-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3.2);
+    opacity: 0;
+  }
+}
+
+.animate-tap-ripple {
+  animation: tap-ripple-expand 540ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Android / Touch Optimization */
+.touch-tactile {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Subtle luxury levitation */
+@keyframes float-levitate {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0);
+  }
+}
+
+.animate-levitate {
+  animation: float-levitate 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* Slow Architectural Grid Drift */
+@keyframes grid-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(72px, 72px, 0);
+  }
+}
+
+.animate-grid-drift {
+  animation: grid-drift 36s linear infinite;
+}
+
+/* Cinematic Diagonal Beam Breathing */
+@keyframes beam-drift {
+  0%, 100% {
+    transform: rotate(-22deg) translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: rotate(-20deg) translate3d(-26px, 14px, 0) scale(1.06);
+    opacity: 0.85;
+  }
+}
+
+.animate-beam-drift {
+  animation: beam-drift 14s ease-in-out infinite;
+}
+
+/* Thin Horizontal Energy Scan Trail */
+@keyframes scan-sweep {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(350%);
+    opacity: 0;
+  }
+}
+
+.animate-scan-sweep {
+  animation: scan-sweep 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Ultra-Fine Background Particle Drift */
+@keyframes particle-float {
+  0% {
+    transform: translate3d(0, 18px, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  80% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(12px, -90px, 0);
+    opacity: 0;
+  }
+}
+
+.animate-particle-float {
+  animation: particle-float var(--particle-duration, 14s) linear var(--particle-delay, 0s) infinite;
+}
+
+/* Subtle Metallic Keyword Emphasis Sweep */
+@keyframes keyword-shimmer {
+  0% {
+    background-position: 160% 50%;
+  }
+  100% {
+    background-position: -60% 50%;
+  }
+}
+
+.text-keyword-shimmer {
+  background: linear-gradient(110deg, #F2F5FA 20%, #FDA4AF 48%, #FFFFFF 52%, #F2F5FA 80%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: keyword-shimmer 7s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .animate-levitate,
+  .animate-grid-drift,
+  .animate-beam-drift,
+  .animate-scan-sweep,
+  .animate-particle-float,
+  .text-keyword-shimmer {
+    animation: none !important;
+  }
+  .text-keyword-shimmer {
+    color: #F2F5FA;
+    background: none;
   }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

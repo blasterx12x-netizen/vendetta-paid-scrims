@@ -1,6 +1,26 @@
-import { ArrowDownRight, ArrowUpRight, Instagram, MessageCircle } from 'lucide-react';
+import { ArrowDownRight, Clock, Headset, MapPin, Trophy, Wallet } from 'lucide-react';
 import { motion } from 'motion/react';
 import { BRAND_CONFIG, HERO_STATS, SOCIAL_LINKS } from '../data/scrimConfig';
+import { TacticalOrbitEmblem } from './EsportsEmblems';
+import {
+  AnimatedCounter,
+  EASE_OUT_EXPO,
+  HeroAtmosphere,
+  HudCornerFrame,
+  TelemetryScanBar,
+} from './MotionPrimitives';
+import {
+  InstagramPortalButton,
+  TactileLink,
+  WhatsAppPortalButton,
+} from './PremiumButtons';
+
+const STAT_ICONS: Record<string, typeof Clock> = {
+  'daily-lobbies': Clock,
+  'map-format': MapPin,
+  'entry-range': Wallet,
+  'top-prize': Trophy,
+};
 
 export function Hero() {
   const headlineParts = BRAND_CONFIG.heroHeadline.split('. ');
@@ -10,137 +30,156 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="bg-vendetta-hero relative overflow-hidden border-b border-[#DFBA82]/22"
+      className="bg-vendetta-stage relative overflow-hidden border-b border-slate-300/14"
     >
-      {/* Subtle gold architectural grid */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-arena-grid opacity-80"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 right-[-6%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(223,186,130,0.14)_0%,rgba(148,22,52,0.22)_45%,transparent_72%)]"
-      />
+      {/* Dynamic Atmospheric Grid Drift, Diagonal Beam & Drifting Micro Particles */}
+      <HeroAtmosphere />
 
-      <div className="relative mx-auto max-w-[1240px] px-4 pt-12 pb-12 sm:px-6 md:pt-16 md:pb-16 lg:px-8 lg:pt-20 lg:pb-20">
-        {/* Two-Column Hero Split */}
-        <div className="grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Left Column: Brand Proposition & CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col justify-center lg:col-span-7"
-          >
-            {/* Unboxed Metadata Kicker (zero-pill rule) */}
-            <div className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold tracking-[0.16em] text-[#C8BECF] uppercase">
-              <span className="text-[#F4D8A8]">{BRAND_CONFIG.name}</span>
-              <span aria-hidden="true" className="text-[#E8859A]">
-                ·
+      <div className="relative mx-auto max-w-[1280px] px-4 pt-12 pb-14 sm:px-6 md:pt-18 md:pb-18 lg:px-8 lg:pt-24 lg:pb-22">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          {/* Left Column: Staggered Kinetic Esports Typography & Actions */}
+          <div className="flex flex-col justify-center lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.44, ease: EASE_OUT_EXPO }}
+              className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold tracking-[0.2em] text-slate-300 uppercase"
+            >
+              <motion.span
+                aria-hidden="true"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: EASE_OUT_EXPO }}
+                className="inline-block h-[2px] w-5 origin-left bg-[#F43F5E]"
+              />
+              <span className="text-white">{BRAND_CONFIG.name}</span>
+              <span aria-hidden="true" className="text-[#F43F5E]">
+                /
               </span>
-              <span>{BRAND_CONFIG.regionLabel}</span>
-            </div>
+              <span className="text-slate-400">{BRAND_CONFIG.regionLabel}</span>
+            </motion.div>
 
             <h1
-              className="font-display text-[clamp(2.85rem,5.5vw,4.95rem)] font-extrabold leading-[0.94] tracking-[-0.01em] uppercase"
+              className="font-display text-[clamp(3.35rem,7vw,6.2rem)] font-black leading-[0.89] uppercase"
               style={{ textWrap: 'balance' }}
             >
-              <span className="block text-[#FAF4EB]">{primaryLine}</span>
+              <motion.span
+                initial={{ opacity: 0, y: 22, letterSpacing: '0.055em' }}
+                animate={{ opacity: 1, y: 0, letterSpacing: '0.015em' }}
+                transition={{ duration: 0.6, delay: 0.06, ease: EASE_OUT_EXPO }}
+                className="text-platinum-chrome block"
+              >
+                {primaryLine}
+              </motion.span>
               {secondaryLine && (
-                <span className="text-gold-metallic mt-1 block">{secondaryLine}</span>
+                <motion.span
+                  initial={{ opacity: 0, y: 24, letterSpacing: '0.06em' }}
+                  animate={{ opacity: 1, y: 0, letterSpacing: '0.015em' }}
+                  transition={{ duration: 0.64, delay: 0.16, ease: EASE_OUT_EXPO }}
+                  className="text-ruby-luminous mt-1 block"
+                >
+                  {secondaryLine}
+                </motion.span>
               )}
             </h1>
 
-            <p className="font-display text-garnet-metallic mt-4 text-lg font-bold tracking-[0.1em] uppercase sm:text-xl">
-              {BRAND_CONFIG.heroSubheadline}
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 14, letterSpacing: '0.24em' }}
+              animate={{ opacity: 1, y: 0, letterSpacing: '0.18em' }}
+              transition={{ duration: 0.52, delay: 0.22, ease: EASE_OUT_EXPO }}
+              className="mt-5 font-sans text-sm font-bold text-slate-200 uppercase sm:text-base"
+            >
+              <span className="text-keyword-shimmer">{BRAND_CONFIG.heroSubheadline}</span>
+            </motion.p>
 
-            <p className="mt-5 max-w-[58ch] text-base leading-relaxed text-[#D4CBDA]">
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.48, delay: 0.28, ease: EASE_OUT_EXPO }}
+              className="mt-4 max-w-[54ch] text-[15px] leading-[1.75] text-slate-300/90 sm:text-base"
+            >
               {BRAND_CONFIG.communityIntro}
-            </p>
+            </motion.p>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
+            {/* Primary & Secondary Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.48, delay: 0.34, ease: EASE_OUT_EXPO }}
+              className="mt-9 flex flex-wrap items-center gap-4"
+            >
+              <WhatsAppPortalButton
                 href={SOCIAL_LINKS.whatsappChannel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-gold-luxury inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2.5 whitespace-nowrap rounded-sm px-6 py-3 text-sm font-bold tracking-[0.07em] uppercase transition-all duration-150"
-              >
-                <MessageCircle className="h-4 w-4" aria-hidden="true" />
-                <span>{SOCIAL_LINKS.whatsappChannel.ctaHero}</span>
-                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
+                label={SOCIAL_LINKS.whatsappChannel.ctaHero}
+                size="hero"
+              />
 
-              <a
+              <TactileLink
                 href="#schedule"
-                className="btn-garnet-luxury inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-sm px-6 py-3 text-sm font-semibold tracking-[0.07em] uppercase transition-all duration-150"
+                className="btn-platinum-primary clip-chamfer group inline-flex min-h-[52px] shrink-0 items-center justify-center gap-2 whitespace-nowrap px-7 py-3.5 text-xs font-bold tracking-[0.11em] uppercase transition-all duration-200 sm:text-sm"
               >
                 <span>View Lobby Schedule</span>
-                <ArrowDownRight className="h-4 w-4 text-[#F4D8A8]" aria-hidden="true" />
-              </a>
-            </div>
+                <ArrowDownRight
+                  className="h-4 w-4 text-[#E11D48] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
+                  aria-hidden="true"
+                />
+              </TactileLink>
+            </motion.div>
 
-            {/* Official Social Links Row (Strictly WhatsApp Channel & Instagram) */}
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-[#DFBA82]/18 pt-6 text-xs text-[#C8BECF]">
-              <span className="font-semibold tracking-[0.12em] text-[#DFBA82] uppercase">
-                Official Channels
+            {/* Coordinated Official Community Portals Row (Instagram + WhatsApp Channel Only) */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.48, delay: 0.42, ease: EASE_OUT_EXPO }}
+              className="mt-8 flex flex-col gap-3 border-t border-slate-300/14 pt-6 sm:flex-row sm:items-center sm:gap-5"
+            >
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] text-slate-400 uppercase">
+                <Headset className="h-3.5 w-3.5 text-[#7DD3FC]" strokeWidth={1.75} aria-hidden="true" />
+                <span>Official Portals</span>
               </span>
-              <a
-                href={SOCIAL_LINKS.instagram.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#FAF4EB] transition-colors hover:text-[#F4D8A8]"
-              >
-                <Instagram className="h-4 w-4 text-[#E8859A]" aria-hidden="true" />
-                <span>Instagram ({SOCIAL_LINKS.instagram.handle})</span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
-              </a>
-              <span aria-hidden="true" className="text-[#DFBA82]/30">
-                /
-              </span>
-              <a
-                href={SOCIAL_LINKS.whatsappChannel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[36px] items-center gap-2 font-medium text-[#FAF4EB] transition-colors hover:text-[#F4D8A8]"
-              >
-                <MessageCircle className="h-4 w-4 text-[#DFBA82]" aria-hidden="true" />
-                <span>Official WhatsApp Channel</span>
-                <ArrowUpRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
-              </a>
-            </div>
-          </motion.div>
+              <div className="flex flex-wrap items-center gap-3">
+                <InstagramPortalButton
+                  href={SOCIAL_LINKS.instagram.url}
+                  label={`Instagram · ${SOCIAL_LINKS.instagram.handle}`}
+                  size="nav"
+                />
+                <WhatsAppPortalButton
+                  href={SOCIAL_LINKS.whatsappChannel.url}
+                  label="Official Channel"
+                  size="nav"
+                />
+              </div>
+            </motion.div>
+          </div>
 
-          {/* Right Column: Official Untouched VENDETTA Emblem Showcase */}
+          {/* Right Column: Chamfered Trophy Pedestal + Dual-Ring Tactical Orbit + Untouched VENDETTA Logo */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center lg:col-span-5"
+            initial={{ opacity: 0, scale: 0.93, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.14, ease: EASE_OUT_EXPO }}
+            className="flex items-center justify-center py-6 lg:col-span-5 lg:py-0"
           >
-            <div className="relative w-full max-w-[440px]">
-              {/* Warm gold & royal wine ambient halo framing the untouched black square logo */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-5 rounded-sm bg-[radial-gradient(circle,rgba(223,186,130,0.28)_0%,rgba(155,20,50,0.26)_48%,transparent_72%)] blur-xl"
-              />
-              <div className="card-plum-glass relative rounded-sm border border-[#DFBA82]/38 p-4 shadow-[0_28px_80px_rgba(8,4,14,0.85)] sm:p-5">
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute top-0 left-0 h-6 w-6 border-t-2 border-l-2 border-[#F4D8A8]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute right-0 bottom-0 h-6 w-6 border-r-2 border-b-2 border-[#E8859A]"
-                />
+            <div className="group relative w-full max-w-[410px]">
+              {/* Dual-Ring 3D-Inspired Targeting Orbit & Crosshair HUD */}
+              <TacticalOrbitEmblem />
 
-                <div className="overflow-hidden rounded-sm border border-[#DFBA82]/24 bg-black">
+              {/* Soft Ruby & Ice-Steel Volumetric Ambient Rim */}
+              <motion.div
+                aria-hidden="true"
+                animate={{ opacity: [0.65, 1, 0.65], scale: [0.98, 1.03, 0.98] }}
+                transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
+                className="pointer-events-none absolute -inset-6 rounded-full bg-[radial-gradient(circle,rgba(225,29,72,0.24)_0%,rgba(148,163,184,0.12)_50%,transparent_74%)] blur-2xl"
+              />
+
+              <div className="surface-titanium clip-chamfer-lg animate-levitate relative overflow-hidden border border-slate-200/20 p-4 sm:p-5">
+                <TelemetryScanBar />
+                <HudCornerFrame />
+                <div className="overflow-hidden rounded-sm border border-slate-200/15 bg-black">
                   <img
                     src={BRAND_CONFIG.logoPath}
                     alt={BRAND_CONFIG.logoAlt}
                     referrerPolicy="no-referrer"
-                    className="aspect-square w-full object-contain"
+                    className="aspect-square w-full object-contain transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
                   />
                 </div>
               </div>
@@ -148,27 +187,52 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Full-Width 4-Column Editable Arena Stats Strip */}
-        <div className="card-plum-glass mt-12 grid grid-cols-2 rounded-sm border border-[#DFBA82]/24 md:mt-16 md:grid-cols-4">
-          {HERO_STATS.map((stat, idx) => (
-            <div
-              key={stat.id}
-              className={`p-5 sm:p-6 ${
-                idx < HERO_STATS.length - 1
-                  ? 'border-b border-[#DFBA82]/14 md:border-r md:border-b-0'
-                  : ''
-              } ${idx % 2 === 0 ? 'border-r border-[#DFBA82]/14 md:border-r' : ''}`}
-            >
-              <p className="text-xs font-semibold tracking-[0.14em] text-[#E8859A] uppercase">
-                {stat.label}
-              </p>
-              <p className="font-display text-gold-metallic mt-2 text-3xl font-bold tracking-tight tabular-nums sm:text-4xl">
-                {stat.value}
-              </p>
-              <p className="mt-1.5 text-xs leading-snug text-[#D4CBDA]">{stat.detail}</p>
-            </div>
-          ))}
-        </div>
+        {/* Full-Width 4-Column Chamfered Arena Telemetry Strip with Animated Counters */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.38, ease: EASE_OUT_EXPO }}
+          className="surface-titanium clip-chamfer relative mt-14 grid grid-cols-2 overflow-hidden border border-slate-300/15 md:mt-18 md:grid-cols-4"
+        >
+          <TelemetryScanBar />
+          {HERO_STATS.map((stat, idx) => {
+            const StatIcon = STAT_ICONS[stat.id] ?? Trophy;
+            return (
+              <motion.div
+                key={stat.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.42 + idx * 0.06, ease: EASE_OUT_EXPO }}
+                className={`p-5 transition-colors duration-200 hover:bg-white/[0.03] sm:p-6 ${
+                  idx < HERO_STATS.length - 1
+                    ? 'border-b border-slate-300/10 md:border-r md:border-b-0'
+                    : ''
+                } ${idx % 2 === 0 ? 'border-r border-slate-300/10 md:border-r' : ''}`}
+              >
+                <p className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.16em] text-[#FB7185] uppercase">
+                  <StatIcon
+                    className="h-3.5 w-3.5 text-[#7DD3FC]"
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  <span>{stat.label}</span>
+                </p>
+                <p className="font-display text-platinum-chrome mt-2 text-4xl font-black tracking-[0.02em] tabular-nums sm:text-[2.75rem]">
+                  {stat.id === 'daily-lobbies' ? (
+                    <AnimatedCounter target={4} padZero={2} duration={0.9} />
+                  ) : stat.id === 'map-format' ? (
+                    <AnimatedCounter target={6} suffix=" Maps" duration={0.95} />
+                  ) : stat.id === 'top-prize' ? (
+                    <AnimatedCounter target={550} prefix="₹" duration={1.15} />
+                  ) : (
+                    stat.value
+                  )}
+                </p>
+                <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{stat.detail}</p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

@@ -62,7 +62,7 @@ export const BRAND_CONFIG = {
   heroHeadline: 'ENTER THE ARENA. OWN THE BATTLE.',
   heroSubheadline: "INDIA'S COMPETITIVE FREE FIRE PAID SCRIM ARENA.",
   communityIntro:
-    'Built for disciplined Free Fire squads across India seeking structured daily custom rooms, back-to-back six-map endurance formats, and transparent prize distribution managed directly by verified admins.',
+    'Engineered for elite Indian Free Fire squads demanding tournament-grade custom rooms, relentless back-to-back six-map endurance circuits, and verified prize pools overseen by dedicated admins.',
   logoPath: '/assets/aistudio/IMG-20261117-WA0019_d4014056.jpg',
   logoAlt: 'VENDETTA PAID SCRIMS official emblem logo',
   regionLabel: 'India Competitive Circuit · IST (UTC+05:30)',
@@ -114,12 +114,13 @@ export const HERO_STATS: EditableStat[] = [
     id: 'top-prize',
     label: 'Top Prize Pool',
     value: '₹550',
-    detail: 'Tier 04 championship payout',
+    detail: 'Legend Series championship payout',
   },
 ];
 
 /**
  * OFFICIAL DAILY LOBBY SCHEDULE (IST)
+ * Preserved exactly as configured.
  */
 export const LOBBY_SCHEDULE: LobbySlotConfig[] = [
   {
@@ -162,105 +163,97 @@ export const LOBBY_SCHEDULE: LobbySlotConfig[] = [
 
 /**
  * LOBBY COUNTDOWN CONFIGURATION
- * Only displays an active countdown when `isScheduleConfigured` is true.
- * Uses real-time IST calculation against the configured daily lobby timings above,
- * or an explicit `explicitTargetIso` timestamp if an exact event date is set.
  */
 export const COUNTDOWN_CONFIG = {
   isScheduleConfigured: true,
   timezoneLabel: 'IST (Asia/Kolkata)',
-  /**
-   * Optional: set a specific ISO date-time (e.g. '2026-11-20T18:00:00+05:30')
-   * to lock the countdown to one exact scheduled fixture, or leave null to
-   * count down to the next configured daily IST lobby time (12 PM, 3 PM, 6 PM, 9 PM).
-   */
   explicitTargetIso: null as string | null,
 };
 
 /**
  * EXACT ENTRY FEES & PRIZE POOLS
- * Do not modify amounts without organiser approval.
+ * Do not modify amounts.
  */
 export const ENTRY_TIERS: TierConfig[] = [
   {
     id: 'tier-01',
-    tierLabel: 'LOBBY TIER 01',
-    tierName: 'Challenger Division',
+    tierLabel: 'ELITE SERIES',
+    tierName: 'Division 01',
     entryFee: 25,
     prizePool: 230,
     entryDisplay: '₹25',
     prizeDisplay: '₹230',
     accentTone: 'steel',
-    summary: 'Accessible entry point for emerging squads sharpening B2B rotations.',
+    summary: 'Precision entry bracket engineered for rising squads mastering B2B rotations.',
   },
   {
     id: 'tier-02',
-    tierLabel: 'LOBBY TIER 02',
-    tierName: 'Contender Division',
+    tierLabel: 'PRO SERIES',
+    tierName: 'Division 02',
     entryFee: 35,
     prizePool: 330,
     entryDisplay: '₹35',
     prizeDisplay: '₹330',
     accentTone: 'crimson',
-    summary: 'Balanced mid-tier bracket built for consistent daily scrim grind.',
+    summary: 'High-consistency mid-bracket built for disciplined daily scrimmage reps.',
   },
   {
     id: 'tier-03',
-    tierLabel: 'LOBBY TIER 03',
-    tierName: 'Vanguard Division',
+    tierLabel: 'CHAMPIONS SERIES',
+    tierName: 'Division 03',
     entryFee: 45,
     prizePool: 450,
     entryDisplay: '₹45',
     prizeDisplay: '₹450',
     accentTone: 'blood',
-    summary: 'High-tempo competitive bracket for disciplined tournament rosters.',
+    summary: 'High-intensity competitive bracket tested by seasoned tournament rosters.',
   },
   {
     id: 'tier-04',
-    tierLabel: 'LOBBY TIER 04',
-    tierName: 'Apex Division',
+    tierLabel: 'LEGEND SERIES',
+    tierName: 'Flagship Division',
     entryFee: 55,
     prizePool: 550,
     entryDisplay: '₹55',
     prizeDisplay: '₹550',
     accentTone: 'obsidian',
-    summary: 'Premier VENDETTA bracket featuring our highest daily prize pool.',
+    summary: 'VENDETTA flagship championship division commanding our highest daily purse.',
   },
 ];
 
 /**
- * WHATSAPP REGISTRATION PROCESS
+ * WHATSAPP REGISTRATION PROCESS (Exact 6 Steps Preserved)
  */
 export const REGISTRATION_STEPS = [
   {
     step: 'STEP 1',
     title: 'Choose your preferred lobby time.',
-    detail: 'Pick from our four daily IST sessions: 12:00 PM, 3:00 PM, 6:00 PM, or 9:00 PM.',
+    detail: 'Select your deployment window from our four daily IST lobbies: 12:00 PM, 3:00 PM, 6:00 PM, or 9:00 PM.',
   },
   {
     step: 'STEP 2',
     title: 'Select your entry fee and prize pool tier.',
-    detail: 'Decide between Lobby Tier 01 (₹25 / ₹230), Tier 02 (₹35 / ₹330), Tier 03 (₹45 / ₹450), or Tier 04 (₹55 / ₹550).',
+    detail: 'Commit to ELITE SERIES (₹25 / ₹230), PRO SERIES (₹35 / ₹330), CHAMPIONS SERIES (₹45 / ₹450), or LEGEND SERIES (₹55 / ₹550).',
   },
   {
     step: 'STEP 3',
     title: 'Join our official WhatsApp channel.',
-    detail: 'Enter the official VENDETTA PAID SCRIMS WhatsApp Channel for live updates and room notices.',
+    detail: 'Enter the official VENDETTA PAID SCRIMS WhatsApp Channel for live notices and lobby schedules.',
   },
   {
     step: 'STEP 4',
     title: 'Contact the admin using the WhatsApp number listed in our channel.',
-    detail: 'Locate the official admin contact details posted inside the WhatsApp Channel description or announcements.',
+    detail: 'Locate the verified admin WhatsApp contact posted inside the official channel details.',
   },
   {
     step: 'STEP 5',
     title: 'Ask the admin for available slots and registration instructions.',
-    detail: 'Message the admin with your chosen lobby timing, tier, and squad name to check slot availability.',
+    detail: 'Send your preferred lobby timing, series tier, and squad name to confirm open slot capacity.',
   },
   {
     step: 'STEP 6',
     title: "Follow the admin's payment and confirmation instructions.",
-    detail: 'Complete the entry fee step directly as instructed by the admin to lock your squad slot.',
+    detail: 'Complete entry settlement directly per admin protocol to lock your squad into the custom room.',
   },
 ];
 
@@ -276,11 +269,11 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/bermuda.jpg',
     sectorTag: 'Classic Archipelago',
     terrainProfile: 'Balanced coastal compounds, Clock Tower high-ground, and Peak ridge rotations.',
-    tacticalNote: 'Opening map testing early drop discipline and central zone control.',
+    tacticalNote: 'Opening battleground demanding crisp drop splits and early central zone control.',
     palette: {
-      primary: '#DC2626',
-      secondary: '#7F1D1D',
-      glow: 'rgba(220, 38, 38, 0.25)',
+      primary: '#F43F5E',
+      secondary: '#881337',
+      glow: 'rgba(244, 63, 94, 0.24)',
     },
   },
   {
@@ -290,10 +283,10 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/purgatory.jpg',
     sectorTag: 'River Basin & Bridges',
     terrainProfile: 'Split landmass separated by narrow bridge chokepoints around Brasilia and Central.',
-    tacticalNote: 'Punishes late river crossings; rewards early vehicle positioning.',
+    tacticalNote: 'Punishes delayed rotations; rewards disciplined bridge control and vehicle timing.',
     palette: {
       primary: '#E11D48',
-      secondary: '#881337',
+      secondary: '#4C0519',
       glow: 'rgba(225, 29, 72, 0.22)',
     },
   },
@@ -304,11 +297,11 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/kalahari.jpg',
     sectorTag: 'Arid Canyon Mesas',
     terrainProfile: 'Vertical sandstone cliffs, Refinery sightlines, and exposed desert valley flanks.',
-    tacticalNote: 'High-ground elevation dominance and long-range utility control.',
+    tacticalNote: 'High-ground elevation mastery and long-range utility discipline decide every circle.',
     palette: {
-      primary: '#EA580C',
-      secondary: '#7C2D12',
-      glow: 'rgba(234, 88, 12, 0.22)',
+      primary: '#FB7185',
+      secondary: '#881337',
+      glow: 'rgba(251, 113, 133, 0.2)',
     },
   },
   {
@@ -318,11 +311,11 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/nexterra.jpg',
     sectorTag: 'Tactical Sci-Fi Sector',
     terrainProfile: 'Symmetrical concrete labs, Intellect Center corridors, and anti-gravity transit zones.',
-    tacticalNote: 'Fast close-quarter squad wipes and sharp third-party timing.',
+    tacticalNote: 'Relentless close-quarter engagements and razor-sharp third-party execution.',
     palette: {
-      primary: '#B91C1C',
-      secondary: '#450A0A',
-      glow: 'rgba(185, 28, 28, 0.28)',
+      primary: '#94A3B8',
+      secondary: '#1E293B',
+      glow: 'rgba(148, 163, 184, 0.24)',
     },
   },
   {
@@ -332,11 +325,11 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/solara.png',
     sectorTag: 'Solar Terrace Arena',
     terrainProfile: 'Stepped compound terraces, wide perimeter flank routes, and rapid mid-zone shifts.',
-    tacticalNote: 'Penultimate clash where consistency points separate podium contenders.',
+    tacticalNote: 'Penultimate clash where consistent placement points separate championship contenders.',
     palette: {
-      primary: '#D97706',
-      secondary: '#78350F',
-      glow: 'rgba(217, 119, 6, 0.22)',
+      primary: '#CBD5E1',
+      secondary: '#334155',
+      glow: 'rgba(203, 213, 225, 0.2)',
     },
   },
   {
@@ -346,12 +339,12 @@ export const MAP_POOL: MapConfig[] = [
     imagePath: '/assets/maps/random-map.png',
     sectorTag: 'Dynamic Final Decider',
     terrainProfile: 'Unannounced final battleground drawn from the official competitive map rotation.',
-    tacticalNote: 'Tests true squad adaptability with zero pre-planned drop comfort.',
+    tacticalNote: 'Eliminates drop-spot predictability and tests true championship adaptability.',
     isRandom: true,
     palette: {
       primary: '#F43F5E',
-      secondary: '#4C0519',
-      glow: 'rgba(244, 63, 94, 0.26)',
+      secondary: '#881337',
+      glow: 'rgba(244, 63, 94, 0.28)',
     },
   },
 ];
@@ -360,45 +353,42 @@ export const COMPETITIVE_PILLARS = [
   {
     id: 'fair-competition',
     index: '01',
-    title: 'Fair Competition & Anti-Cheat Integrity',
+    title: 'Zero-Compromise Anti-Cheat Protocol',
     description:
-      'Strict mobile-lobby enforcement and zero tolerance for third-party scripts, panels, or cross-team collusion. Every match outcome is earned on skill and positioning.',
-    metric: 'Zero-Tolerance Policy',
+      'Strict competitive enforcement prohibiting third-party scripts, config modifications, or cross-squad collusion—ensuring every victory is won purely on mechanical skill and macro calling.',
+    metric: 'Strict Integrity',
   },
   {
     id: 'organised-matches',
     index: '02',
-    title: 'Organised B2B Six-Map Scheduling',
+    title: 'B2B Six-Map Endurance Format',
     description:
-      'Four consistent daily timings at 12:00 PM, 3:00 PM, 6:00 PM, and 9:00 PM IST running back-to-back six-map blocks so squads get full tournament-grade practice.',
+      'Four daily IST deployment windows running consecutive six-map blocks so Indian rosters build genuine tournament stamina across every competitive terrain.',
     metric: '4 Daily Windows',
   },
   {
     id: 'pro-management',
     index: '03',
-    title: 'Dedicated Room & Admin Management',
+    title: 'Precision Admin Operations',
     description:
-      'Streamlined slot confirmation and room credential distribution through our official WhatsApp Channel so teams spend time competing, not waiting on disorganised lobbies.',
-    metric: 'Direct Admin Desk',
+      'Direct slot confirmation and custom room credential dispatch through our official WhatsApp Channel—eliminating idle lobby delays and disorganised launches.',
+    metric: 'Dedicated Desk',
   },
   {
     id: 'transparent-prizes',
     index: '04',
-    title: 'Clear Entry Tiers & Prize Pools',
+    title: 'Fixed Tier & Purse Architecture',
     description:
-      'Every lobby tier displays exact entry fees and prize pools upfront—from ₹25 (₹230 pool) up to ₹55 (₹550 pool)—with zero hidden deductions or shifting payouts.',
-    metric: '₹230 to ₹550 Pools',
+      'Upfront entry fees and guaranteed prize pools across every division—from ₹25 (₹230 purse) to ₹55 (₹550 purse)—with zero ambiguity.',
+    metric: '₹230 – ₹550 Purse',
   },
 ];
 
-/**
- * EDITABLE RULES & FAIR PLAY GUIDELINES
- */
 export const RULES_CATEGORIES: RuleGroup[] = [
   {
     id: 'tournament-rules',
     title: 'Tournament Rules',
-    summary: 'Core lobby structure and slot discipline for every VENDETTA PAID SCRIMS session.',
+    summary: 'Core lobby structure and slot discipline enforced across every VENDETTA PAID SCRIMS session.',
     rules: [
       'All daily scrims operate in a Back-to-Back (B2B) 6-map format: Bermuda, Purgatory, Kalahari, Nex Terra, Solara, and one Random Map.',
       'Squads must register their exact team name and roster slot with the official admin via the WhatsApp number listed in our channel before lobby lock.',
@@ -409,7 +399,7 @@ export const RULES_CATEGORIES: RuleGroup[] = [
   {
     id: 'fair-play',
     title: 'Fair Play & Anti-Cheat',
-    summary: 'Strict integrity standards protecting every competitive Indian squad in the arena.',
+    summary: 'Uncompromising competitive standards protecting every legitimate Indian squad.',
     rules: [
       'Zero tolerance for hacks, third-party config files, aim-assist panels, location trackers, or modified APKs.',
       'Cross-squad teaming, intentional feeding, or ghosting via external streams is strictly prohibited.',
@@ -420,7 +410,7 @@ export const RULES_CATEGORIES: RuleGroup[] = [
   {
     id: 'match-conduct',
     title: 'Match Conduct & Disputes',
-    summary: 'Communication, result verification, and prize settlement protocol.',
+    summary: 'Communication standards, scoreboard verification, and administrative rulings.',
     rules: [
       'Squad leaders are responsible for capturing end-of-match scoreboard screenshots across all six B2B maps.',
       'Abusive behaviour, hate speech, or harassment directed toward admins or competing rosters will not be tolerated.',
@@ -430,9 +420,6 @@ export const RULES_CATEGORIES: RuleGroup[] = [
   },
 ];
 
-/**
- * OFFICIAL FAQ SECTION (All 10 required questions)
- */
 export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'faq-1',
@@ -450,13 +437,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: 'faq-3',
     question: 'What are the available entry fees?',
     answer:
-      'We offer four exact entry fee tiers: Lobby Tier 01 is ₹25, Lobby Tier 02 is ₹35, Lobby Tier 03 is ₹45, and Lobby Tier 04 is ₹55.',
+      'We offer four exact entry fee series: ELITE SERIES is ₹25, PRO SERIES is ₹35, CHAMPIONS SERIES is ₹45, and LEGEND SERIES is ₹55.',
   },
   {
     id: 'faq-4',
     question: 'What are the corresponding prize pools?',
     answer:
-      'Each entry tier carries a dedicated prize pool: Lobby Tier 01 (₹25 entry) has a ₹230 prize pool, Lobby Tier 02 (₹35 entry) has a ₹330 prize pool, Lobby Tier 03 (₹45 entry) has a ₹450 prize pool, and Lobby Tier 04 (₹55 entry) has a ₹550 prize pool.',
+      'Each series carries a dedicated prize pool: ELITE SERIES (₹25 entry) has a ₹230 prize pool, PRO SERIES (₹35 entry) has a ₹330 prize pool, CHAMPIONS SERIES (₹45 entry) has a ₹450 prize pool, and LEGEND SERIES (₹55 entry) has a ₹550 prize pool.',
   },
   {
     id: 'faq-5',

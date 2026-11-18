@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Clock, Check, ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Clock, Check, ArrowRight, Megaphone, Wallet, Headset } from 'lucide-react';
 import {
   COUNTDOWN_CONFIG,
   ENTRY_TIERS,
   LOBBY_SCHEDULE,
   type LobbySlotConfig,
 } from '../data/scrimConfig';
+import {
+  EASE_OUT_EXPO,
+  ParallaxSectionAura,
+  SectionHeading,
+  TelemetryScanBar,
+  VIEWPORT_CONFIG,
+} from './MotionPrimitives';
+import { TactileButton } from './PremiumButtons';
 
 interface LobbyScheduleProps {
   selectedLobbyId: string;
@@ -114,120 +123,165 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
   return (
     <section
       id="schedule"
-      className="relative border-b border-[#DFBA82]/20 bg-gradient-to-b from-[#171123] via-[#130E1D] to-[#110C1A] py-16 md:py-24"
+      className="relative overflow-hidden border-b border-slate-300/14 bg-gradient-to-b from-[#0A0E19] via-[#0D1221] to-[#080B14] py-16 md:py-24"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-1/2 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#DFBA82]/45 to-transparent"
-      />
+      <ParallaxSectionAura position="left" tone="steel" />
+      <TelemetryScanBar />
 
-      <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col gap-6 border-b border-[#DFBA82]/16 pb-8 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-6 border-b border-slate-300/14 pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-[#DFBA82] uppercase">
-              Official Lobby Schedule
-            </p>
-            <h2
-              className="font-display mt-2 text-[clamp(2rem,3.6vw,3.1rem)] font-bold leading-none tracking-tight text-[#FAF4EB] uppercase"
-              style={{ textWrap: 'balance' }}
+            <SectionHeading
+              eyebrow="Official Lobby Schedule"
+              title="Four Daily IST Scrim Windows"
+              symbol="schedule"
+            />
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={VIEWPORT_CONFIG}
+              transition={{ duration: 0.45, delay: 0.14, ease: EASE_OUT_EXPO }}
+              className="mt-3 max-w-[58ch] text-sm leading-[1.7] text-slate-300 sm:text-[15px]"
             >
-              Four Daily IST Scrim Windows
-            </h2>
-            <p className="mt-3 max-w-[58ch] text-sm leading-relaxed text-[#C8BECF] sm:text-base">
               Consistent daily custom room timings running B2B six-map sessions. Select a
               lobby below to pre-fill your WhatsApp registration request.
-            </p>
+            </motion.p>
           </div>
 
-          {/* Schedule-Driven IST Countdown */}
+          {/* Schedule-Driven IST Countdown Console */}
           {COUNTDOWN_CONFIG.isScheduleConfigured && countdown && (
-            <div className="card-garnet-velvet flex flex-col gap-3 rounded-sm border border-[#DFBA82]/35 px-5 py-4 sm:flex-row sm:items-center sm:gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: 16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={VIEWPORT_CONFIG}
+              transition={{ duration: 0.48, delay: 0.16, ease: EASE_OUT_EXPO }}
+              className="surface-ruby-command clip-chamfer relative flex flex-col gap-3 overflow-hidden border border-rose-400/30 px-5 py-4 sm:flex-row sm:items-center sm:gap-6"
+            >
+              <TelemetryScanBar />
               <div>
-                <div className="flex items-center gap-2 text-xs font-medium tracking-[0.1em] text-[#E4DCE9] uppercase">
-                  <Clock className="h-3.5 w-3.5 text-[#F4D8A8]" aria-hidden="true" />
+                <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] text-slate-200 uppercase">
+                  <Clock className="h-3.5 w-3.5 text-[#FB7185]" aria-hidden="true" />
                   <span>Next Scheduled Lobby · {countdown.dateLabel}</span>
                 </div>
-                <p className="font-display mt-1 text-lg font-bold tracking-wide text-[#F4D8A8] uppercase">
+                <p className="font-display mt-1 text-2xl font-bold tracking-[0.06em] text-white uppercase">
                   {countdown.targetLabel} — {countdown.sessionTitle}
                 </p>
               </div>
 
               <div
                 aria-label={`Time until ${countdown.targetLabel}`}
-                className="font-mono-tabular flex items-center gap-1.5 text-2xl font-bold text-[#FAF4EB]"
+                className="font-mono-tabular flex items-center gap-1.5 text-2xl font-bold text-white"
               >
-                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
+                <span className="rounded-sm border border-slate-300/20 bg-[#06080F] px-2.5 py-1.5 text-slate-100">
                   {countdown.hours}
                 </span>
-                <span className="text-[#E8859A]">:</span>
-                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
+                <span className="text-[#F43F5E]">:</span>
+                <span className="rounded-sm border border-slate-300/20 bg-[#06080F] px-2.5 py-1.5 text-slate-100">
                   {countdown.minutes}
                 </span>
-                <span className="text-[#E8859A]">:</span>
-                <span className="rounded-sm border border-[#DFBA82]/30 bg-[#140D1E] px-2.5 py-1.5 text-[#F4D8A8]">
+                <span className="text-[#F43F5E]">:</span>
+                <motion.span
+                  key={countdown.seconds}
+                  initial={{ opacity: 0.65, y: -2 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  className="rounded-sm border border-rose-400/30 bg-[#06080F] px-2.5 py-1.5 text-[#FDA4AF]"
+                >
                   {countdown.seconds}
-                </span>
+                </motion.span>
               </div>
-            </div>
+            </motion.div>
           )}
         </div>
 
-        {/* 4 Lobby Timetable Cards */}
+        {/* Exact 4 Lobby Timetable Cards Preserved */}
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {LOBBY_SCHEDULE.map((lobby, index) => {
             const isSelected = selectedLobbyId === lobby.id;
             const slotNumber = String(index + 1).padStart(2, '0');
 
             return (
-              <article
+              <motion.article
                 key={lobby.id}
-                className={`group flex flex-col justify-between rounded-sm border p-6 transition-all duration-150 hover:-translate-y-0.5 ${
+                initial={{ opacity: 0, y: 20, scale: 0.985 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={VIEWPORT_CONFIG}
+                transition={{ duration: 0.45, delay: index * 0.07, ease: EASE_OUT_EXPO }}
+                className={`clip-chamfer group relative flex flex-col justify-between overflow-hidden border p-6 transition-all duration-200 hover:-translate-y-1 ${
                   isSelected
-                    ? 'card-garnet-velvet border-[#DFBA82]/65'
-                    : 'card-plum-glass border-[#DFBA82]/18 hover:border-[#DFBA82]/45'
+                    ? 'surface-ruby-command border-[#F43F5E]/80 shadow-[0_18px_45px_rgba(225,29,72,0.22)]'
+                    : 'surface-titanium border-slate-300/16 hover:border-slate-200/42'
                 }`}
               >
+                {/* Animated Top Border Beam on Hover / Selection */}
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-x-0 top-0 h-[2px] origin-left bg-gradient-to-r from-[#F43F5E] via-white to-[#F43F5E] transition-transform duration-300 ${
+                    isSelected ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  }`}
+                />
+
                 <div>
-                  {/* Quiet Typographic Metadata Line */}
-                  <div className="flex items-center justify-between border-b border-[#DFBA82]/14 pb-3 text-xs font-medium tracking-[0.12em] uppercase">
-                    <span className="text-[#DFBA82]">Lobby {slotNumber}</span>
-                    <span className="text-[#E8859A]">{lobby.sessionTitle}</span>
+                  {/* Metadata Header */}
+                  <div className="flex items-center justify-between border-b border-slate-300/12 pb-3 text-[11px] font-bold tracking-[0.14em] uppercase">
+                    <span className="font-mono-tabular text-slate-300">Lobby {slotNumber}</span>
+                    <span className="text-[#FB7185]">{lobby.sessionTitle}</span>
                   </div>
 
-                  {/* Digital Clock Timing */}
-                  <div className="mt-5 flex items-baseline gap-2">
-                    <span className="font-mono-tabular text-gold-metallic text-3xl font-bold tracking-tight sm:text-4xl">
-                      {lobby.timeLabel}
+                  {/* Digital Clock Timing with Premium Clock Icon */}
+                  <div className="mt-5 flex items-center gap-2.5">
+                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border border-sky-300/25 bg-[#0A1324] text-[#7DD3FC]">
+                      <Clock className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
                     </span>
-                    <span className="text-xs font-semibold tracking-widest text-[#E8859A] uppercase">
-                      IST
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-mono-tabular text-platinum-chrome text-3xl font-bold tracking-tight sm:text-[2rem]">
+                        {lobby.timeLabel}
+                      </span>
+                      <span className="text-xs font-bold tracking-[0.18em] text-[#FB7185] uppercase">
+                        IST
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Details */}
-                  <dl className="mt-6 space-y-3 border-t border-[#DFBA82]/14 pt-4 text-xs">
+                  {/* Preserved Details with Meaningful Icons */}
+                  <dl className="mt-6 space-y-3.5 border-t border-slate-300/12 pt-4 text-xs">
                     <div>
-                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
-                        Registration Availability
+                      <dt className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.12em] text-slate-400 uppercase">
+                        <Megaphone
+                          className="h-3.5 w-3.5 text-[#7DD3FC]"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                        <span>Registration Availability</span>
                       </dt>
-                      <dd className="mt-0.5 text-sm font-medium text-[#FAF4EB]">
+                      <dd className="mt-1 text-sm font-medium text-slate-100">
                         {lobby.availabilityNote}
                       </dd>
                     </div>
                     <div>
-                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
-                        Entry Fee Options
+                      <dt className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.12em] text-slate-400 uppercase">
+                        <Wallet
+                          className="h-3.5 w-3.5 text-[#7DD3FC]"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                        <span>Entry Fee Options</span>
                       </dt>
-                      <dd className="font-mono-tabular mt-0.5 text-sm font-semibold text-[#F4D8A8]">
+                      <dd className="font-mono-tabular mt-1 text-sm font-semibold text-white">
                         {entrySummary}
                       </dd>
                     </div>
                     <div>
-                      <dt className="font-medium tracking-wider text-[#9D92AA] uppercase">
-                        WhatsApp Registration
+                      <dt className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.12em] text-slate-400 uppercase">
+                        <Headset
+                          className="h-3.5 w-3.5 text-[#7DD3FC]"
+                          strokeWidth={1.75}
+                          aria-hidden="true"
+                        />
+                        <span>WhatsApp Registration</span>
                       </dt>
-                      <dd className="mt-0.5 leading-relaxed text-[#C8BECF]">
+                      <dd className="mt-1 leading-relaxed text-slate-300">
                         {lobby.registrationInstruction}
                       </dd>
                     </div>
@@ -235,17 +289,14 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                 </div>
 
                 <div className="mt-6 pt-2">
-                  <button
-                    type="button"
+                  <TactileButton
                     onClick={() => {
                       onSelectLobby(lobby.id);
                       const el = document.getElementById('register');
                       el?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap rounded-sm px-4 py-2.5 text-xs font-bold tracking-[0.08em] uppercase transition-all duration-150 ${
-                      isSelected
-                        ? 'btn-gold-luxury'
-                        : 'btn-plum-outline'
+                    className={`clip-chamfer flex min-h-[44px] w-full items-center justify-center gap-2 whitespace-nowrap px-4 py-2.5 text-xs font-bold tracking-[0.09em] uppercase transition-all duration-200 ${
+                      isSelected ? 'btn-ruby-primary' : 'btn-titanium-outline'
                     }`}
                   >
                     {isSelected ? (
@@ -256,12 +307,15 @@ export function LobbySchedule({ selectedLobbyId, onSelectLobby }: LobbyScheduleP
                     ) : (
                       <>
                         <span>Select {lobby.timeLabel} Lobby</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-[#DFBA82]" aria-hidden="true" />
+                        <ArrowRight
+                          className="h-3.5 w-3.5 text-[#FB7185] transition-transform duration-200 group-hover:translate-x-0.5"
+                          aria-hidden="true"
+                        />
                       </>
                     )}
-                  </button>
+                  </TactileButton>
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>
